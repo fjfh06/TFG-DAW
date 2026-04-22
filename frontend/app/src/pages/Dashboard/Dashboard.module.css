@@ -1,0 +1,162 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.welcomeCard {
+  background: linear-gradient(135deg, #f8fafc 0%, #ffffff 100%);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+  overflow: hidden;
+}
+
+.welcomeCard::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 4px;
+  height: 100%;
+  background: var(--color-primary);
+}
+
+.welcomeCard h2 {
+  font-size: 1.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.welcomeCard p {
+  color: var(--color-gray-600);
+  font-size: 0.9rem;
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.sectionHeader {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--color-gray-900);
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+/* Grids - Mobile First */
+.alertsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+.metricsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+.metricCard {
+  background-color: var(--color-white);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+  border: 1px solid var(--color-gray-200);
+  box-shadow: var(--shadow-sm);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease;
+}
+
+.metricCard:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+}
+
+.metricTitle {
+  font-size: 0.75rem;
+  color: var(--color-gray-600);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.metricValue {
+  font-size: 2.25rem;
+  font-weight: 900;
+  color: var(--color-black);
+  margin-bottom: 0.25rem;
+  line-height: 1;
+}
+
+.metricSub {
+  font-size: 0.8rem;
+  color: var(--color-gray-300);
+  font-weight: 500;
+}
+
+.shortcuts {
+  background-color: var(--color-gray-50);
+  border: 1px solid var(--color-gray-200);
+  border-radius: var(--radius-lg);
+  padding: 1.5rem;
+}
+
+.shortcuts h4 {
+  margin-bottom: 1rem;
+  font-weight: 800;
+}
+
+.shortcutsGrid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+/* Desktop Scaling */
+@media (min-width: 768px) {
+  .container {
+    gap: 2.5rem;
+  }
+
+  .welcomeCard {
+    padding: 2.5rem;
+  }
+
+  .welcomeCard h2 {
+    font-size: 1.75rem;
+  }
+
+  .alertsGrid {
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 2rem;
+  }
+
+  .metricsGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem;
+  }
+
+  .metricValue {
+    font-size: 3rem;
+  }
+}
+
+@media (min-width: 1280px) {
+  .metricsGrid {
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  }
+}

@@ -1,0 +1,375 @@
+.container {
+  padding-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  animation: fadeIn 0.6s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(15px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* Glass Hero Profile - Mobile First */
+.heroWrapper {
+  position: relative;
+}
+
+.heroContent {
+  background: var(--gradient-glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.5);
+  padding: 1.5rem;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-md);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.5rem;
+  text-align: center;
+}
+
+.avatarWrapper {
+  position: relative;
+}
+
+.statusIcon {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  background: var(--color-success);
+  width: 2rem;
+  height: 2rem;
+  border-radius: var(--radius-full);
+  border: 3px solid white;
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.heroText {
+  flex: 1;
+}
+
+.heroBadges {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.badge {
+  font-size: 0.6rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  padding: 0.25rem 0.75rem;
+  border-radius: var(--radius-full);
+}
+
+.badgeIndigo { background: #eef2ff; color: #4f46e5; }
+.badgeEmerald { background: #ecfdf5; color: var(--color-success); }
+
+.heroTitle {
+  font-size: 2rem;
+  font-weight: 900;
+  color: var(--color-black);
+  line-height: 1.1;
+  margin-bottom: 0.75rem;
+}
+
+.heroTitle span {
+  color: var(--color-primary);
+}
+
+.heroStats {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.statItem {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-gray-600);
+}
+
+/* Dashboard Grid - Mobile First */
+.dashboardGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+/* Fiscal Monitor */
+.cardBase {
+  background: rgba(255, 255, 255, 0.9);
+  padding: 1.5rem;
+  border-radius: var(--radius-xl);
+  border: 1px solid var(--color-gray-100);
+  box-shadow: var(--shadow-sm);
+}
+
+.cardHeader {
+  margin-bottom: 1.5rem;
+}
+
+.cardTitleWrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.cardIcon {
+  background: var(--color-primary);
+  padding: 0.5rem;
+  border-radius: var(--radius-md);
+  color: white;
+  display: flex;
+}
+
+.cardTitle {
+  font-size: 1.25rem;
+  font-weight: 900;
+  color: var(--color-black);
+}
+
+.cardSubtitle {
+  font-size: 0.65rem;
+  font-weight: 800;
+  color: var(--color-gray-300);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.fiscalContent {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+}
+
+.sectionTitle {
+  font-size: 0.7rem;
+  font-weight: 800;
+  color: var(--color-gray-600);
+  text-transform: uppercase;
+  margin-bottom: 1rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.unpaidList {
+  background: #fffbeb;
+  padding: 1rem;
+  border-radius: var(--radius-lg);
+  border: 1px dashed var(--color-warning);
+}
+
+.monthsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(80px, 1fr));
+  gap: 0.5rem;
+}
+
+.monthTag {
+  background: white;
+  padding: 0.75rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-gray-200);
+  text-align: center;
+}
+
+.monthTagYear {
+  font-size: 0.55rem;
+  font-weight: 800;
+  color: var(--color-gray-300);
+}
+
+.monthTagName {
+  font-size: 0.85rem;
+  font-weight: 900;
+  color: #b45309;
+}
+
+.paidHistory {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.paidItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--color-gray-50);
+  padding: 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-gray-200);
+  transition: all 0.2s;
+}
+
+.paidItemInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.monthNumBadge {
+  width: 2rem;
+  height: 2rem;
+  background: var(--color-gray-200);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 800;
+  font-size: 0.75rem;
+}
+
+.paidAmount {
+  font-weight: 900;
+  color: var(--color-primary);
+}
+
+.liquidatedBadge {
+  font-size: 0.5rem;
+  background: rgba(16, 185, 129, 0.1);
+  color: var(--color-success);
+  padding: 0.1rem 0.4rem;
+  border-radius: var(--radius-full);
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+/* Digital ID Card */
+.digitalCard {
+  border-radius: var(--radius-xl);
+  padding: 1.5rem;
+  color: white;
+  min-height: 300px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+.cardPaid { background: #1a1a1a; }
+.cardUnpaid { background: var(--color-primary-dark); }
+
+.cardGlow {
+  position: absolute;
+  top: -20%;
+  right: -20%;
+  width: 15rem;
+  height: 15rem;
+  background: rgba(211, 47, 47, 0.3);
+  filter: blur(50px);
+  border-radius: var(--radius-full);
+}
+
+.cardTop {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
+}
+
+.seasonID { text-align: right; }
+.seasonLabel { font-size: 0.5rem; opacity: 0.6; }
+.seasonValue { font-family: monospace; font-size: 0.7rem; }
+
+.cardMain { flex: 1; }
+.licenseName { font-size: 1.5rem; font-weight: 900; color: var(--color-secondary); }
+
+.pillsRow { display: flex; gap: 0.25rem; margin-top: 1rem; }
+.pill { flex: 1; height: 3px; border-radius: 4px; background: rgba(255,255,255,0.1); }
+.pillActive { background: var(--color-success); box-shadow: 0 0 10px var(--color-success); }
+
+.cardBottom {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  padding-top: 1.5rem;
+  border-top: 1px solid rgba(255,255,255,0.1);
+}
+
+.idBottomLabel { font-size: 0.5rem; opacity: 0.4; text-transform: uppercase; }
+
+/* Assistant Command Center */
+.assistantZone {
+  background: var(--color-primary);
+  padding: 1.5rem;
+  border-radius: var(--radius-xl);
+  color: white;
+}
+
+.zoneHeader { display: flex; align-items: center; gap: 0.5rem; margin-bottom: 1.25rem; }
+
+.actionButton {
+  width: 100%;
+  background: rgba(255,255,255,0.1);
+  border: none;
+  padding: 1rem;
+  border-radius: var(--radius-lg);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  cursor: pointer;
+  margin-bottom: 0.5rem;
+  transition: transform 0.2s;
+}
+
+.actionButton:hover { background: rgba(255,255,255,0.2); transform: scale(1.02); }
+
+.actionLabel { display: flex; align-items: center; gap: 0.75rem; font-weight: 700; font-size: 0.85rem; }
+
+/* Empty States */
+.loaderWrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem 0;
+  gap: 1rem;
+}
+
+.spinner {
+  width: 3rem;
+  height: 3rem;
+  border: 4px solid var(--color-gray-200);
+  border-top-color: var(--color-primary);
+  border-radius: var(--radius-full);
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin { to { transform: rotate(360deg); } }
+
+.emptyState {
+  background: var(--color-white);
+  padding: 2.5rem;
+  border-radius: var(--radius-xl);
+  text-align: center;
+  border: 1px solid var(--color-gray-200);
+}
+
+/* Tablet & Desktop Layout Scaling */
+@media (min-width: 768px) {
+  .container { gap: 2rem; }
+  .heroContent { flex-direction: row; text-align: left; padding: 2.5rem; }
+  .heroBadges { justify-content: flex-start; }
+  .heroStats { justify-content: flex-start; }
+  .heroTitle { font-size: 3rem; }
+  .fiscalContent { grid-template-columns: 1fr 1fr; gap: 2rem; }
+}
+
+@media (min-width: 1280px) {
+  .dashboardGrid { grid-template-columns: 2fr 1fr; }
+}

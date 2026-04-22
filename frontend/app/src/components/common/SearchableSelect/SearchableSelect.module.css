@@ -1,0 +1,139 @@
+.container {
+  position: relative;
+  width: 100%;
+  font-family: inherit;
+}
+
+.selectBox {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.6rem 1rem;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.75rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  min-height: 44px;
+}
+
+.selectBox:hover {
+  border-color: #cbd5e1;
+}
+
+.selectBox.active {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+.selectedContent {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.selectedText {
+  display: flex;
+  flex-direction: column;
+}
+
+.placeholder {
+  color: #94a3b8;
+}
+
+.arrow {
+  color: #64748b;
+  font-size: 0.8rem;
+  margin-left: 0.5rem;
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 5px);
+  left: 0;
+  width: 100%;
+  background: white;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  z-index: 1000;
+  overflow: hidden;
+  animation: slideIn 0.2s ease-out;
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateY(-5px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.searchBox {
+  padding: 0.5rem;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.searchInput {
+  width: 100%;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  font-size: 0.9rem;
+  outline: none;
+}
+
+.searchInput:focus {
+  border-color: #3b82f6;
+}
+
+.optionsList {
+  max-height: 250px;
+  overflow-y: auto;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.6rem 1rem;
+  cursor: pointer;
+  transition: background 0.15s ease;
+}
+
+.option:hover {
+  background: #f8fafc;
+}
+
+.option.selected {
+  background: #eff6ff;
+  color: #2563eb;
+}
+
+.optionImg {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  object-fit: cover;
+  background: #f1f5f9;
+}
+
+.optionInfo {
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  font-weight: 500;
+  font-size: 0.95rem;
+}
+
+.sublabel {
+  font-size: 0.8rem;
+  color: #64748b;
+}
+
+.noResults {
+  padding: 1rem;
+  text-align: center;
+  color: #94a3b8;
+  font-size: 0.9rem;
+}

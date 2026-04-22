@@ -1,0 +1,190 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+  animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background: white;
+  padding: 1.5rem 2rem;
+  border-radius: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  border: 1px solid var(--color-gray-100);
+}
+
+.header h2 {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0;
+  letter-spacing: -0.025em;
+}
+
+.tabs {
+  display: flex;
+  gap: 1.5rem;
+  border-bottom: 2px solid #f1f5f9;
+  overflow-x: auto;
+  padding-bottom: 2px;
+}
+
+/* Hide scrollbar for tabs but keep functionality */
+.tabs::-webkit-scrollbar {
+  display: none;
+}
+.tabs {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.tabBtn {
+  background: none;
+  border: none;
+  padding: 0.75rem 0.25rem;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: #64748b;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.tabBtn:hover {
+  color: #3b82f6;
+}
+
+.activeTab {
+  color: #3b82f6;
+}
+
+.activeTab::after {
+  content: "";
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background-color: #3b82f6;
+  border-radius: 3px 3px 0 0;
+}
+
+.card {
+  background: white;
+  border-radius: 1.5rem;
+  box-shadow: var(--shadow-sm);
+  padding: 2rem;
+  border: 1px solid #f1f5f9;
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.cardHeader h3 {
+  font-size: 1.25rem;
+  font-weight: 800;
+  color: #1e293b;
+  margin: 0;
+}
+
+.tableArea {
+  overflow-x: auto;
+  border-radius: 1rem;
+  border: 1px solid #f1f5f9;
+}
+
+/* Legacy styles removed. Now using global .premiumTable and .tableWrapper */
+
+.activeBadge {
+  background-color: #10b981;
+  color: white;
+  padding: 0.35rem 0.75rem;
+  border-radius: 2rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+}
+
+.actions {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.btnGroup {
+  display: flex;
+  gap: 0.75rem;
+}
+
+.formGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  background: #f8fafc;
+  padding: 1.5rem;
+  border-radius: 1rem;
+  margin-bottom: 2rem;
+  border: 1px solid #e2e8f0;
+  align-items: flex-end;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.formGroup label {
+  font-weight: 700;
+  color: #475569;
+  font-size: 0.85rem;
+}
+
+.formGroup input, .formGroup select {
+  padding: 0.65rem 1rem;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.75rem;
+  font-size: 0.95rem;
+  outline: none;
+  transition: all 0.2s;
+}
+
+.formGroup input:focus {
+  border-color: #3b82f6;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+}
+
+/* BADGES FOR ROLES */
+.badge {
+  padding: 0.35rem 0.75rem;
+  border-radius: 2rem;
+  font-size: 0.75rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.badgeSuccess { background: #dcfce7; color: #166534; }
+.badgeWarning { background: #fef9c3; color: #854d0e; }
+.badgeDanger { background: #fee2e2; color: #991b1b; }
+
+@media (max-width: 640px) {
+  .header {
+    padding: 1.25rem;
+    text-align: center;
+    align-items: center;
+  }
+}

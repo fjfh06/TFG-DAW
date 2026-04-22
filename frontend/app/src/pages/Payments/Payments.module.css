@@ -1,0 +1,155 @@
+/* c:\Users\fjavi\Documents\TFG-DAW\frontend\app\src\pages\Payments\Payments.module.css */
+.paymentsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.header {
+  margin-bottom: var(--spacing-sm);
+}
+
+.tabsContainer {
+  display: flex;
+  gap: var(--spacing-md);
+  border-bottom: 2px solid var(--color-gray-200);
+}
+
+.tabBtn {
+  padding: var(--spacing-sm) var(--spacing-lg);
+  font-weight: 500;
+  color: var(--color-gray-600);
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px; /* overlap border */
+  font-size: var(--font-size-base);
+  transition: all 0.2s;
+}
+
+.tabBtn:hover {
+  color: var(--color-gray-900);
+}
+
+.activeTab {
+  color: var(--color-primary);
+  border-bottom-color: var(--color-primary);
+}
+
+.tabContent {
+  padding-top: var(--spacing-md);
+}
+
+/* Tab details */
+.flexBetween {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--spacing-md);
+}
+
+.tableContainer {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table th,
+.table td {
+  padding: var(--spacing-md);
+  text-align: left;
+  border-bottom: 1px solid var(--color-gray-200);
+}
+
+.table th {
+  background-color: var(--color-gray-50);
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-700);
+  font-weight: 600;
+}
+
+.table tbody tr:hover {
+  background-color: var(--color-gray-50);
+}
+
+.badge {
+  display: inline-flex;
+  padding: var(--spacing-xs) var(--spacing-sm);
+  border-radius: var(--radius-full);
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: capitalize;
+}
+
+.badgeSuccess {
+  background-color: #d1fae5;
+  color: #065f46;
+}
+
+.badgeWarning {
+  background-color: #fef3c7;
+  color: #92400e;
+}
+
+.badgeDanger {
+  background-color: #fee2e2;
+  color: #991b1b;
+}
+
+.filterBar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+  padding: var(--spacing-md);
+  background-color: var(--color-gray-50);
+  border-radius: var(--radius-md);
+}
+
+.actionBtn {
+  color: var(--color-info);
+  font-size: var(--font-size-sm);
+  margin-right: var(--spacing-sm);
+}
+
+.actionBtn:hover {
+  text-decoration: underline;
+}
+
+.deleteBtn {
+  color: var(--color-danger);
+  font-size: var(--font-size-sm);
+}
+
+.deleteBtn:hover {
+  text-decoration: underline;
+}
+
+/* --- MOBILE RESPONSIVE --- */
+@media (max-width: 768px) {
+  .tabsContainer {
+    flex-wrap: wrap;
+  }
+
+  .tabBtn {
+    flex: 1;
+    text-align: center;
+    padding: var(--spacing-sm);
+  }
+
+  .flexBetween {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--spacing-md);
+  }
+
+  .flexBetween button {
+    width: 100%;
+  }
+
+  .filterBar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+}

@@ -1,0 +1,177 @@
+/* c:\Users\fjavi\Documents\TFG-DAW\frontend\app\src\pages\Students\StudentForm.module.css */
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  animation: fadeIn 0.4s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.header h2 {
+  font-size: 1.75rem;
+  font-weight: 900;
+  color: var(--color-black);
+  margin: 0;
+  letter-spacing: -0.02em;
+}
+
+.formCard {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.5rem;
+  background: white;
+  padding: 2rem;
+  border-radius: var(--radius-xl);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--color-gray-100);
+}
+
+.formMain {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1.25rem;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.formGroup label {
+  font-size: 0.8rem;
+  font-weight: 800;
+  color: var(--color-gray-600);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.inputField {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-gray-200);
+  background: #f8fafc;
+  font-size: 0.95rem;
+  color: var(--color-black);
+  transition: all 0.2s;
+}
+
+.inputField:focus {
+  outline: none;
+  background: white;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 4px rgba(211, 47, 47, 0.1);
+}
+
+.checkboxContainer {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-md);
+  background-color: var(--color-gray-50);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-gray-200);
+  margin-top: var(--spacing-md);
+}
+
+.checkboxContainer input[type="checkbox"] {
+  width: 1.25rem;
+  height: 1.25rem;
+  accent-color: var(--color-primary);
+  cursor: pointer;
+}
+
+.checkboxContainer label {
+  font-weight: 500;
+  color: var(--color-gray-800);
+  cursor: pointer;
+}
+
+.photoSection {
+  text-align: center;
+  width: 100%;
+}
+
+.photoSection h4 {
+  margin-bottom: var(--spacing-md);
+  color: var(--color-gray-700);
+  font-size: var(--font-size-md);
+}
+
+.fileInputWrapper {
+  margin-top: var(--spacing-md);
+  width: 100%;
+}
+
+.fileInput {
+  display: block;
+  width: 100%;
+  font-size: var(--font-size-sm);
+  color: var(--color-gray-500);
+}
+
+.fileInput::file-selector-button {
+  padding: var(--spacing-sm) var(--spacing-md);
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-gray-300);
+  background-color: white;
+  color: var(--color-gray-700);
+  cursor: pointer;
+  transition: all 0.2s;
+  margin-right: var(--spacing-md);
+}
+
+.fileInput::file-selector-button:hover {
+  background-color: var(--color-gray-50);
+}
+
+.formActions {
+  width: 100%;
+  margin-top: var(--spacing-xl);
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--color-gray-200);
+  display: flex;
+  justify-content: flex-end;
+}
+
+.submitBtn {
+  background-color: var(--color-primary);
+  color: white;
+  padding: 0.75rem 2rem;
+  border-radius: var(--radius-md);
+  font-weight: 600;
+  font-size: var(--font-size-md);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  min-width: 200px;
+}
+
+.submitBtn:hover:not(:disabled) {
+  background-color: var(--color-primary-dark);
+}
+
+.submitBtn:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}

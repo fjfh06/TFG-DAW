@@ -1,0 +1,200 @@
+.card {
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  border-top: 4px solid var(--border-color);
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+.danger {
+  border-top-color: #ef4444;
+}
+
+.warning {
+  border-top-color: #f59e0b;
+}
+
+.success {
+  border-top-color: #10b981;
+}
+
+.info {
+  border-top-color: #3b82f6;
+}
+
+.header {
+  padding: 1rem 1.25rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #f3f4f6;
+  background-color: #fafafa;
+}
+
+.titleInfo {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.icon {
+  font-size: 1.25rem;
+}
+
+.title {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+  color: #374151;
+}
+
+.countBadge {
+  background: #f3f4f6;
+  color: #4b5563;
+  padding: 0.25rem 0.75rem;
+  border-radius: 9999px;
+  font-weight: 700;
+  font-size: 1.125rem;
+}
+
+.danger .countBadge {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.warning .countBadge {
+  background: #fef3c7;
+  color: #b45309;
+}
+
+.content {
+  padding: 1rem 1.25rem;
+  flex-grow: 1;
+}
+
+.emptyState {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 2rem 0;
+  color: #9ca3af;
+  font-style: italic;
+  font-size: 0.95rem;
+}
+
+.studentList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.studentItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  transition: background-color 0.15s;
+}
+
+.studentItem:hover {
+  background-color: #f9fafb;
+}
+
+.studentInfo {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  overflow: hidden;
+  flex: 1;
+}
+
+.studentName {
+  font-size: 1rem;
+  font-weight: 800;
+  color: #0f172a;
+  white-space: normal;
+  word-break: break-word;
+  line-height: 1.25;
+}
+
+.studentDetails {
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  flex: 1;
+}
+
+.actionArrow {
+  color: #94a3b8;
+  font-weight: bold;
+  opacity: 0.5;
+  transition: all 0.2s;
+  font-size: 1.25rem;
+  margin-left: 0.5rem;
+}
+
+.studentItem:hover .actionArrow {
+  opacity: 1;
+  transform: translateX(3px);
+  color: var(--color-primary);
+}
+
+.moreItem {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: #64748b;
+  text-align: center;
+  padding: 0.75rem;
+  cursor: pointer;
+  background: #f8fafc;
+  border-radius: 0.75rem;
+  margin-top: 0.5rem;
+  transition: all 0.2s;
+}
+
+.moreItem:hover {
+  background: #f1f5f9;
+  color: #1e293b;
+}
+
+.cardFooter {
+  padding: 1rem 1.25rem;
+  border-top: 1px solid #f3f4f6;
+  background-color: #fafafa;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.badgeContainer {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.45rem;
+  align-items: center;
+}
+
+.monthBadge {
+  font-size: 0.6rem;
+  font-weight: 800;
+  color: #ef4444;
+  background: #fee2e2;
+  padding: 0.15rem 0.4rem;
+  border-radius: 4px;
+  text-transform: uppercase;
+  border: 1px solid rgba(239, 68, 68, 0.1);
+}
+
+.moreBadge {
+  background: #f1f5f9;
+  color: #475569;
+  border-color: #cbd5e1;
+}
