@@ -77,10 +77,11 @@ const AssignedLicensesTab = () => {
 
       const d_inicio = `${year}-11-01`;
       const d_fin = `${year+1}-10-31`;
+      const todayStr = new Date().toISOString().split('T')[0];
 
       setForm({
         id: 0, alumno_id: "", tipo_licencia_id: "",
-        estado_pago: "pendiente", fecha_pago: "",
+        estado_pago: "pendiente", fecha_pago: todayStr,
         fecha_inicio_validez: d_inicio, fecha_fin_validez: d_fin
       });
     }

@@ -54,6 +54,7 @@ def create_app():
     app.config['JWT_COOKIE_SAMESITE'] = 'Lax'
     # app.config['JWT_COOKIE_CSRF_PROTECT'] = True # Only if CSRF headers are implemented manually in frontend
     app.config['JWT_COOKIE_CSRF_PROTECT'] = True
+    app.config["JWT_SESSION_COOKIE"] = False
     app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(hours=12)
 
     # Extensions

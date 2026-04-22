@@ -175,3 +175,17 @@
   opacity: 0.7;
   cursor: not-allowed;
 }
+
+.dateSelector {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr 1fr;
+  gap: 0.5rem;
+  max-width: 450px; /* Limit width on large screens */
+}
+
+@media (max-width: 640px) {
+  .dateSelector {
+    grid-template-columns: 1fr;
+    max-width: 100%;
+  }
+}

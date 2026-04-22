@@ -1,0 +1,21 @@
+{
+  "name": "Gestión Club Shaolin",
+  "short_name": "Club Shaolin",
+  "start_url": "/tfg/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "description": "Aplicación oficial del Club Shaolin",
+  "icons": [
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}

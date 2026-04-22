@@ -9,6 +9,22 @@ import { Loader } from "../../components/common/Loader/Loader";
 import { useLoading } from "../../hooks/useLoading";
 import styles from "./StudentForm.module.css";
 
+const MONTHS = [
+  { value: '01', label: 'Enero' },
+  { value: '02', label: 'Febrero' },
+  { value: '03', label: 'Marzo' },
+  { value: '04', label: 'Abril' },
+  { value: '05', label: 'Mayo' },
+  { value: '06', label: 'Junio' },
+  { value: '07', label: 'Julio' },
+  { value: '08', label: 'Agosto' },
+  { value: '09', label: 'Septiembre' },
+  { value: '10', label: 'Octubre' },
+  { value: '11', label: 'Noviembre' },
+  { value: '12', label: 'Diciembre' },
+];
+const YEARS = Array.from({ length: 101 }, (_, i) => (new Date().getFullYear() - i).toString());
+
 const StudentForm = () => {
   const { id } = useParams();
   const navigate = useNavigate();
@@ -54,23 +70,33 @@ const StudentForm = () => {
     activo: true,
   });
 
+  const [birthParts, setBirthParts] = useState({ d: "", m: "", y: "" });
+
   useEffect(() => {
     if (isEditing && id) {
       const fetchStudent = async () => {
         try {
           setIsLoading(true);
           const studentData = await studentAPI.getStudent(Number(id));
+          const birthDateStr = studentData.fecha_nacimiento ? studentData.fecha_nacimiento.split('T')[0] : "";
+          
           setFormValues({
             nombre: studentData.nombre || "",
             apellidos: studentData.apellidos || "",
             dni: studentData.dni || "",
-            fecha_nacimiento: studentData.fecha_nacimiento ? studentData.fecha_nacimiento.split('T')[0] : "",
+            fecha_nacimiento: birthDateStr,
             telefono: studentData.telefono || "",
             direccion: studentData.direccion || "",
             grado_actual_id: studentData.grado_actual_id?.toString() || "",
             user_id: studentData.user_id?.toString() || "",
             activo: studentData.activo,
           });
+
+          if (birthDateStr) {
+            const [y, m, d] = birthDateStr.split('-');
+            setBirthParts({ y, m, d });
+          }
+
           setCurrentPhoto(studentData.foto || null);
           setPreviewUrl(null);
         } catch {
@@ -150,6 +176,33 @@ const StudentForm = () => {
     }
   };
 
+  const handleDatePartChange = (type: 'd' | 'm' | 'y', value: string) => {
+    setBirthParts(prev => {
+      const newParts = { ...prev, [type]: value };
+      const { d, m, y } = newParts;
+      
+      // Update formValues.fecha_nacimiento in sync
+      if (d && m && y) {
+        setFormValues(v => ({ ...v, fecha_nacimiento: `${y}-${m}-${d}` }));
+      } else {
+        setFormValues(v => ({ ...v, fecha_nacimiento: "" }));
+      }
+      
+      return newParts;
+    });
+  };
+
+  const getDaysInMonth = (month: string, year: string) => {
+    const m = month ? parseInt(month) : 1;
+    const y = year ? parseInt(year) : 2024;
+    return new Date(y, m, 0).getDate();
+  };
+
+  const dynamicDays = Array.from(
+    { length: getDaysInMonth(birthParts.m, birthParts.y) }, 
+    (_, i) => (i + 1).toString().padStart(2, '0')
+  );
+
   if (isLoading) return <Loader text="Cargando datos..." />;
 
   return (
@@ -182,7 +235,33 @@ const StudentForm = () => {
             </div>
             <div className={styles.formGroup}>
               <label>Fecha Nacimiento</label>
-              <input type="date" name="fecha_nacimiento" value={formValues.fecha_nacimiento} onChange={handleInputChange} className={styles.inputField} />
+              <div className={styles.dateSelector}>
+                <select 
+                  className={styles.inputField} 
+                  value={birthParts.y} 
+                  onChange={(e) => handleDatePartChange('y', e.target.value)}
+                >
+                  <option value="">Año</option>
+                  {YEARS.map(y => <option key={y} value={y}>{y}</option>)}
+                </select>
+                <select 
+                  className={styles.inputField} 
+                  value={birthParts.m} 
+                  onChange={(e) => handleDatePartChange('m', e.target.value)}
+                >
+                  <option value="">Mes</option>
+                  {MONTHS.map(m => <option key={m.value} value={m.value}>{m.label}</option>)}
+                </select>
+                <select 
+                  className={styles.inputField} 
+                  value={birthParts.d} 
+                  onChange={(e) => handleDatePartChange('d', e.target.value)}
+                >
+                  <option value="">Día</option>
+                  {dynamicDays.map(d => <option key={d} value={d}>{d}</option>)}
+                </select>
+              </div>
+              <input type="hidden" name="fecha_nacimiento" value={formValues.fecha_nacimiento} />
             </div>
           </div>
 
