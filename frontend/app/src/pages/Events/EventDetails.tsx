@@ -3,6 +3,8 @@ import { eventAPI } from "../../services/event.service";
 import { studentAPI } from "../../services/student.service";
 import type { Evento, Participacion, Alumno, EstadoInscripcion, EstadoPagoParticipacion } from "../../types";
 import { toast } from "sonner";
+import { Loader } from "../../components/common/Loader/Loader";
+import { useLoading } from "../../hooks/useLoading";
 import styles from "./Events.module.css";
 import { StudentAvatar } from "../../components/common/StudentAvatar/StudentAvatar";
 import { SearchableSelect } from "../../components/common/SearchableSelect/SearchableSelect";
@@ -27,7 +29,7 @@ interface Props {
 const EventDetails = ({ evento, onBack }: Props) => {
   const [participaciones, setParticipaciones] = useState<Participacion[]>([]);
   const [alumnos, setAlumnos] = useState<Alumno[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useLoading(false);
   const [isFormOpen, setIsFormOpen] = useState(false);
   
   const [form, setForm] = useState({
@@ -179,6 +181,8 @@ const EventDetails = ({ evento, onBack }: Props) => {
   const totalRecaudado = participaciones
     .filter(p => p.estado_pago === 'pagado')
     .reduce((acc, current) => acc + Number(current.precio_pactado || 0), 0);
+
+  if (isLoading) return <Loader text="Cargando datos del evento..." />;
 
   return (
     <div className={styles.container}>

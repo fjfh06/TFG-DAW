@@ -4,12 +4,13 @@ import type { Temporada } from "../types";
 import { seasonAPI } from "../services/season.service";
 import { useAuth } from "../hooks/useAuth";
 import { SeasonContext } from "./SeasonContext";
+import { useLoading } from "../hooks/useLoading";
 
 export const SeasonProvider = ({ children }: { children: ReactNode }) => {
   const { user } = useAuth();
   const [seasons, setSeasons] = useState<Temporada[]>([]);
   const [currentSeason, setCurrentSeasonState] = useState<Temporada | null>(null);
-  const [isLoadingSeasons, setIsLoadingSeasons] = useState<boolean>(true);
+  const [isLoadingSeasons, setIsLoadingSeasons] = useLoading(true);
 
   const fetchSeasons = useCallback(async () => {
     if (!user) return;

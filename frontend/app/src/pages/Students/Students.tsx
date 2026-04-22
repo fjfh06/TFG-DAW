@@ -5,11 +5,13 @@ import type { Alumno } from "../../types";
 import { StudentAvatar } from "../../components/common/StudentAvatar/StudentAvatar";
 import { toast } from "sonner";
 import styles from "./Students.module.css";
+import { Loader } from "../../components/common/Loader/Loader";
+import { useLoading } from "../../hooks/useLoading";
 
 const Students = () => {
   const [students, setStudents] = useState<Alumno[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useLoading(true);
   const navigate = useNavigate();
 
   const fetchStudents = async () => {
@@ -70,7 +72,7 @@ const Students = () => {
           </div>
         </div>
         {isLoading ? (
-          <div className="text-center py-12 text-gray-400 font-bold">Cargando alumnos...</div>
+          <Loader text="Cargando alumnos..." />
         ) : students.length === 0 ? (
           <div className="text-center py-12 text-gray-500 font-bold">No hay alumnos registrados.</div>
         ) : (

@@ -5,6 +5,8 @@ import { studentAPI } from "../../services/student.service";
 import type { LicenciaAlumno, TipoLicencia, Alumno, EstadoPago } from "../../types";
 import { useSeason } from "../../hooks/useSeason";
 import { toast } from "sonner";
+import { Loader } from "../../components/common/Loader/Loader";
+import { useLoading } from "../../hooks/useLoading";
 import styles from "./Licenses.module.css";
 import { SearchableSelect } from "../../components/common/SearchableSelect/SearchableSelect";
 
@@ -13,7 +15,7 @@ const AssignedLicensesTab = () => {
   const [licencias, setLicencias] = useState<LicenciaAlumno[]>([]);
   const [tipos, setTipos] = useState<TipoLicencia[]>([]);
   const [alumnos, setAlumnos] = useState<Alumno[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useLoading(false);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const filtroParam = searchParams.get('filtro');
@@ -219,7 +221,7 @@ const AssignedLicensesTab = () => {
       )}
 
       {isLoading ? (
-        <div className="py-4 text-center">Cargando...</div>
+        <Loader text="Cargando licencias..." />
       ) : filtroParam === 'sin_licencia' ? (
         <div className={styles.tableContainer}>
           <div className="bg-amber-50 p-4 border-b border-amber-100 flex items-center gap-3">

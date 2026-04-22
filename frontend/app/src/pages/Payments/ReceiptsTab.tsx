@@ -4,6 +4,8 @@ import { pagoAPI, tarifaAPI } from "../../services/payment.service";
 import { studentAPI } from "../../services/student.service";
 import type { PagoMensualidad, EstadoPago, Alumno, TarifaMensual } from "../../types";
 import { toast } from "sonner";
+import { Loader } from "../../components/common/Loader/Loader";
+import { useLoading } from "../../hooks/useLoading";
 import styles from "./Payments.module.css";
 import { useSeason } from "../../hooks/useSeason";
 import { SearchableSelect } from "../../components/common/SearchableSelect/SearchableSelect";
@@ -13,7 +15,7 @@ const ReceiptsTab = () => {
   const [pagos, setPagos] = useState<PagoMensualidad[]>([]);
   const [alumnos, setAlumnos] = useState<Alumno[]>([]);
   const [tarifas, setTarifas] = useState<TarifaMensual[]>([]);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useLoading(false);
   const [searchParams, setSearchParams] = useSearchParams();
   const filtroParam = searchParams.get('filtro');
   
@@ -297,7 +299,7 @@ const ReceiptsTab = () => {
       )}
 
       {isLoading ? (
-        <div className="py-4">Cargando recibos...</div>
+        <Loader text="Cargando recibos..." />
       ) : filtroParam === 'pendientes' ? (
         <div className={styles.tableContainer}>
           <div className="bg-red-50 p-4 border-b border-red-100 flex items-center gap-3">

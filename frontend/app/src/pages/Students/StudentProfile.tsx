@@ -9,16 +9,15 @@ import { StudentAvatar } from "../../components/common/StudentAvatar/StudentAvat
 import { CalendarView } from "../../components/common/Calendar/CalendarView";
 import { useSeason } from "../../hooks/useSeason";
 import { toast } from "sonner";
+import { Loader } from "../../components/common/Loader/Loader";
+import { useLoading } from "../../hooks/useLoading";
 import { 
   ChevronDown, 
   Search, 
   CreditCard, 
-  Medal as Award, 
   ArrowLeft, 
   Edit3, 
-  Calendar,
   Trophy,
-  Clock as History,
   Shield
 } from "lucide-react";
 import type { Alumno, Cinturon, Asistencia, PagoMensualidad, Participacion, LicenciaAlumno, TipoLicencia, Evento } from "../../types";
@@ -38,7 +37,7 @@ const StudentProfile = () => {
   const [eventos, setEventos] = useState<Evento[]>([]);
   const { currentSeason, isLoadingSeasons } = useSeason();
   
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useLoading(true);
   const [activeTab, setActiveTab] = useState<'info' | 'asistencia' | 'economia' | 'eventos'>('info');
 
   // Filtros Asistencia
@@ -98,7 +97,7 @@ const StudentProfile = () => {
     if (!isLoadingSeasons) fetchData();
   }, [id, navigate, currentSeason, isLoadingSeasons]);
 
-  if (isLoading) return <div className="text-center py-8">Cargando perfil...</div>;
+  if (isLoading) return <Loader text="Cargando perfil..." />;
   if (!alumno) return <div className="text-center py-8">Alumno no encontrado</div>;
 
   const cinturonNombre = cinturones.find(c => c.id === alumno.grado_actual_id)?.nombre || "Sin cinturón";

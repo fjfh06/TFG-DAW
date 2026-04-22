@@ -10,6 +10,8 @@ import { toast } from "sonner";
 import { formatDate } from "../../utils/formatters";
 import { useNavigate } from "react-router-dom";
 import styles from "./StudentDashboardView.module.css";
+import { Loader } from "../../components/common/Loader/Loader";
+import { useLoading } from "../../hooks/useLoading";
 import { 
   CreditCard, 
   ShieldCheck, 
@@ -33,7 +35,7 @@ export const StudentDashboardView = () => {
   const [pagos, setPagos] = useState<PagoMensualidad[]>([]);
   const [licencia, setLicencia] = useState<LicenciaAlumno | null>(null);
   const [tipoLicencia, setTipoLicencia] = useState<TipoLicencia | null>(null);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useLoading(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -75,15 +77,10 @@ export const StudentDashboardView = () => {
     };
 
     fetchData();
-  }, [user, currentSeason]);
+  }, [user, currentSeason, setIsLoading]);
 
   if (isLoading) {
-    return (
-      <div className={styles.loaderWrapper}>
-        <div className={styles.spinner}></div>
-        <p className="text-gray-800 font-bold uppercase tracking-widest">Sincronizando Corazón del Club...</p>
-      </div>
-    );
+    return <Loader text="Sincronizando Corazón del Club..." />;
   }
 
   if (!alumno) {
@@ -262,7 +259,7 @@ export const StudentDashboardView = () => {
                     <div className={styles.cardBottom}>
                        <div>
                           <p className={styles.idBottomLabel}>Vence en</p>
-                          <p className={styles.idBottomValue}>{formatDate(licencia.fecha_fin_validez)}</p>
+                          <p className={styles.idBottomValue}>{formatDate(licencia.fecha_fin_validez ?? undefined)}</p>
                        </div>
                        <div>
                           <p className={styles.idBottomLabel}>Estado</p>

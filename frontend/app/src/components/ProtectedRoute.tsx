@@ -1,6 +1,7 @@
 import { Navigate, useLocation } from "react-router-dom";
 import { useAuth } from "../hooks/useAuth";
 import type { Role } from "../types";
+import { Loader } from "./common/Loader/Loader";
 
 interface ProtectedRouteProps {
   children: React.ReactNode;
@@ -12,11 +13,7 @@ const ProtectedRoute = ({ children, allowedRoles }: ProtectedRouteProps) => {
   const location = useLocation();
 
   if (isLoading) {
-    return (
-      <div className="flex justify-center items-center" style={{ minHeight: '100vh' }}>
-        <p>Cargando sesión...</p>
-      </div>
-    );
+    return <Loader text="Cargando sesión..." fullPage />;
   }
 
   if (!user) {

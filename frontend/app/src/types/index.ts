@@ -134,5 +134,6 @@ export interface Participacion {
   categoria?: string | null;
   estado_inscripcion: EstadoInscripcion;
   estado_pago: EstadoPagoParticipacion;
+  precio_pactado?: string | number | null;
   resultado?: ResultadoCompeticion | null;
 }

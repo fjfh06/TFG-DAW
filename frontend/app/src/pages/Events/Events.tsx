@@ -3,6 +3,8 @@ import { eventAPI } from "../../services/event.service";
 import type { Evento, TipoEvento, EstadoEvento } from "../../types";
 import { useSeason } from "../../hooks/useSeason";
 import { toast } from "sonner";
+import { Loader } from "../../components/common/Loader/Loader";
+import { useLoading } from "../../hooks/useLoading";
 import styles from "./Events.module.css";
 import EventDetails from "./EventDetails";
 import { EventCard } from "./EventCard";
@@ -11,7 +13,7 @@ const Events = () => {
   const { currentSeason, isLoadingSeasons } = useSeason();
   const [eventos, setEventos] = useState<Evento[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useLoading(false);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [selectedEventId, setSelectedEventId] = useState<number | null>(null);
 
@@ -217,7 +219,9 @@ const Events = () => {
 
       <div className={styles.eventGrid}>
         {isLoading ? (
-          <div className="col-span-full py-12 text-center text-gray-400 font-bold">Cargando eventos...</div>
+          <div className="col-span-full">
+            <Loader text="Cargando eventos..." />
+          </div>
         ) : eventos.length === 0 ? (
           <div className="col-span-full py-12 text-center text-gray-500 font-bold bg-gray-50 rounded-2xl border-2 border-dashed border-gray-200">
             No hay eventos registrados en esta temporada.

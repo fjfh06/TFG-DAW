@@ -3,13 +3,15 @@ import { licenseTypeAPI } from "../../services/license.service";
 import type { TipoLicencia } from "../../types";
 import { useSeason } from "../../hooks/useSeason";
 import { toast } from "sonner";
+import { Loader } from "../../components/common/Loader/Loader";
+import { useLoading } from "../../hooks/useLoading";
 import styles from "./Licenses.module.css";
 
 const LicenseTypesTab = () => {
   const { currentSeason, isLoadingSeasons } = useSeason();
   const [tipos, setTipos] = useState<TipoLicencia[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useLoading(false);
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [form, setForm] = useState({ id: 0, nombre: "", precio: "" });
 
@@ -128,7 +130,7 @@ const LicenseTypesTab = () => {
       )}
 
       {isLoading ? (
-        <div className="py-4 text-center">Cargando...</div>
+        <Loader text="Cargando tipos de licencia..." />
       ) : tipos.length === 0 ? (
         <div className="py-4 text-center text-gray-500">No hay configuradas para esta temporada.</div>
       ) : (

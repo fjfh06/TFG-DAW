@@ -2,6 +2,7 @@ import { useState, useEffect } from "react";
 import { NavLink, Outlet, useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { useSeason } from "../../hooks/useSeason";
+import { Loader } from "../common/Loader/Loader";
 import styles from "./Layout.module.css";
 import { Menu, X } from "lucide-react";
 import logoClubShaolin from "../../assets/logoClubShaolin.png";
@@ -27,6 +28,7 @@ export const MainLayout = () => {
 
   return (
     <div className={styles.layoutContainer}>
+      {isLoadingSeasons && <Loader fullPage text="Sincronizando Temporada..." />}
       {/* Mobile overlay */}
       {isMobileMenuOpen && (
         <div 
@@ -130,7 +132,7 @@ export const MainLayout = () => {
                 disabled={isLoadingSeasons || seasons.length === 0}
               >
                 {isLoadingSeasons ? (
-                  <option value="">Cargando...</option>
+                  <option value="">...</option>
                 ) : seasons.length === 0 ? (
                   <option value="">Sin temporadas</option>
                 ) : (

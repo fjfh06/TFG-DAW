@@ -2,6 +2,8 @@ import { useState, useEffect } from "react";
 import { userAPI } from "../../services/user.service";
 import type { User, Role } from "../../types";
 import { toast } from "sonner";
+import { Loader } from "../../components/common/Loader/Loader";
+import { useLoading } from "../../hooks/useLoading";
 import styles from "./Settings.module.css";
 import { useAuth } from "../../hooks/useAuth";
 import { formatRole } from "../../utils/formatters";
@@ -10,7 +12,7 @@ const UsersTab = () => {
   const { user: currentUser } = useAuth();
   const [users, setUsers] = useState<User[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useLoading(false);
   
   const [showForm, setShowForm] = useState(false);
   const [formData, setFormData] = useState({ id: 0, username: '', password: '', rol: 'user' as Role });
@@ -82,7 +84,7 @@ const UsersTab = () => {
     }
   };
 
-  if (isLoading) return <div className="text-center py-4">Cargando usuarios...</div>;
+  if (isLoading) return <Loader text="Cargando usuarios..." />;
 
   const filteredUsers = users.filter(u => 
     u.username.toLowerCase().includes(searchTerm.toLowerCase()) || 
@@ -160,7 +162,7 @@ const UsersTab = () => {
       )}
 
       {isLoading ? (
-        <div className="py-12 text-center text-gray-400 font-bold">Cargando usuarios...</div>
+        <Loader text="Cargando usuarios..." />
       ) : filteredUsers.length === 0 ? (
         <div className="py-12 text-center text-gray-400 font-bold">No se encontraron usuarios.</div>
       ) : (

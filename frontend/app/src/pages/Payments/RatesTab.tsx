@@ -3,13 +3,15 @@ import { tarifaAPI } from "../../services/payment.service";
 import type { TarifaMensual } from "../../types";
 import { useSeason } from "../../hooks/useSeason";
 import { toast } from "sonner";
+import { Loader } from "../../components/common/Loader/Loader";
+import { useLoading } from "../../hooks/useLoading";
 import styles from "./Payments.module.css";
 
 const RatesTab = () => {
   const { currentSeason, isLoadingSeasons } = useSeason();
   const [tarifas, setTarifas] = useState<TarifaMensual[]>([]);
   const [searchTerm, setSearchTerm] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useLoading(true);
   const [isFormOpen, setIsFormOpen] = useState(false);
   
   const [form, setForm] = useState({ id: 0, nombre: "", precio_base: "" });
@@ -130,7 +132,7 @@ const RatesTab = () => {
       )}
 
       {isLoading ? (
-        <div>Cargando tarifas...</div>
+        <Loader text="Cargando tarifas..." />
       ) : tarifas.length === 0 ? (
         <div className="text-gray-500 text-center py-4">No hay tarifas configuradas para esta temporada.</div>
       ) : (

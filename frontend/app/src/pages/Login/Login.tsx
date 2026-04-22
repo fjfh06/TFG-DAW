@@ -1,6 +1,7 @@
 import { useActionState, useEffect } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import { useNavigate, useLocation } from "react-router-dom";
+import { Loader } from "../../components/common/Loader/Loader";
 import styles from "./Login.module.css";
 import logoClubShaolin from "../../assets/logoClubShaolin.png";
 
@@ -98,7 +99,7 @@ const Login = () => {
             disabled={isPending}
             className={`btn btn-primary ${styles.submitBtn}`}
           >
-            {isPending ? "Iniciando sesión..." : "Entrar"}
+            {isPending ? <Loader text="Iniciando sesión..." compact /> : "Entrar"}
           </button>
         </form>
       </div>

@@ -2,6 +2,7 @@
 @import "./variables.css";
 @import "./global.css";
 @import "./design-system.css";
+@import "./loader.css";
 
 /* Core Utilities & Missing Tailwind-like adapters */
 .container {
@@ -100,14 +101,15 @@
 }
 
 .btn-secondary {
-  background: var(--color-white);
-  color: var(--color-gray-800);
-  border: 1.5px solid var(--color-gray-200);
+  background: transparent;
+  color: var(--color-gray-600);
+  border: 1.5px solid transparent;
 }
 
 .btn-secondary:hover {
-  background: var(--color-gray-50);
-  border-color: var(--color-gray-400);
+  background: var(--color-gray-100);
+  color: var(--color-gray-900);
+  border-color: transparent;
 }
 
 /* Premium Card */

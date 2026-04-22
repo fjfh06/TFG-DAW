@@ -5,6 +5,8 @@ import { userAPI } from "../../services/user.service";
 import type { Cinturon, User } from "../../types";
 import { toast } from "sonner";
 import { StudentAvatar } from "../../components/common/StudentAvatar/StudentAvatar";
+import { Loader } from "../../components/common/Loader/Loader";
+import { useLoading } from "../../hooks/useLoading";
 import styles from "./StudentForm.module.css";
 
 const StudentForm = () => {
@@ -14,7 +16,7 @@ const StudentForm = () => {
 
   const [cinturones, setCinturones] = useState<Cinturon[]>([]);
   const [usuarios, setUsuarios] = useState<User[]>([]);
-  const [loadingInitial, setLoadingInitial] = useState(isEditing);
+  const [isLoading, setIsLoading] = useLoading(isEditing);
   const [isSubmitting, setIsSubmitting] = useState(false);
   
   // Para mostrar la foto actual o la previsualización
@@ -32,10 +34,12 @@ const StudentForm = () => {
         setUsuarios(usersData);
       } catch {
         toast.error("Error al cargar datos iniciales");
+      } finally {
+        setIsLoading(false);
       }
     };
     init();
-  }, []);
+  }, [setIsLoading]);
 
   // Native Form ref
   const [formValues, setFormValues] = useState({
@@ -54,6 +58,7 @@ const StudentForm = () => {
     if (isEditing && id) {
       const fetchStudent = async () => {
         try {
+          setIsLoading(true);
           const studentData = await studentAPI.getStudent(Number(id));
           setFormValues({
             nombre: studentData.nombre || "",
@@ -67,16 +72,17 @@ const StudentForm = () => {
             activo: studentData.activo,
           });
           setCurrentPhoto(studentData.foto || null);
+          setPreviewUrl(null);
         } catch {
           toast.error("Error al cargar datos del alumno");
           navigate("/alumnos");
         } finally {
-          setLoadingInitial(false);
+          setIsLoading(false);
         }
       };
       fetchStudent();
     }
-  }, [id, isEditing, navigate]);
+  }, [id, isEditing, navigate, setIsLoading]);
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -144,7 +150,7 @@ const StudentForm = () => {
     }
   };
 
-  if (loadingInitial) return <div className="p-4 text-center">Cargando datos...</div>;
+  if (isLoading) return <Loader text="Cargando datos..." />;
 
   return (
     <div className={styles.formContainer}>

@@ -4,10 +4,11 @@ import type { User } from "../types";
 import { authAPI } from "../services/api";
 import { toast } from "sonner";
 import { AuthContext } from "./AuthContext";
+import { useLoading } from "../hooks/useLoading";
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
-  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isLoading, setIsLoading] = useLoading(true);
 
   const fetchUser = async () => {
     try {

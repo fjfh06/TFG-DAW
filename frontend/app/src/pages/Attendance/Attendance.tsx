@@ -7,7 +7,9 @@ import type { Alumno, Asistencia, Evento, Cinturon } from "../../types";
 import { toast } from "sonner";
 import { StudentAvatar } from "../../components/common/StudentAvatar/StudentAvatar";
 import { CalendarView } from "../../components/common/Calendar/CalendarView";
-import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Users, CheckCircle2, Search, Target } from "lucide-react";
+import { Loader } from "../../components/common/Loader/Loader";
+import { useLoading } from "../../hooks/useLoading";
+import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Users, CheckCircle2 } from "lucide-react";
 import styles from "./Attendance.module.css";
 
 const Attendance = () => {
@@ -29,7 +31,7 @@ const Attendance = () => {
   const [eventos, setEventos] = useState<Evento[]>([]);
   const [asistencias, setAsistencias] = useState<Asistencia[]>([]);
   const [date, setDate] = useState<string>(''); // YYYY-MM-DD
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useLoading(false);
   const [searchTerm, setSearchTerm] = useState('');
 
   // Selected Month/Year for view navigation
@@ -269,7 +271,7 @@ const Attendance = () => {
 
           <div className={styles.studentList}>
             {isLoading ? (
-              <div className={styles.loader}>Cargando lista...</div>
+              <Loader text="Cargando lista..." />
             ) : filteredAlumnos.length === 0 ? (
               <div className={styles.empty}>No hay alumnos que coincidan con la búsqueda.</div>
             ) : (

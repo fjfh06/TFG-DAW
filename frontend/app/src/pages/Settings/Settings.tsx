@@ -3,13 +3,15 @@ import { seasonAPI } from "../../services/season.service";
 import { cinturonAPI } from "../../services/student.service";
 import type { Temporada, Cinturon } from "../../types";
 import { toast } from "sonner";
+import { Loader } from "../../components/common/Loader/Loader";
+import { useLoading } from "../../hooks/useLoading";
 import UsersTab from "./UsersTab";
 import styles from "./Settings.module.css";
 
 const Settings = () => {
   const [temporadas, setTemporadas] = useState<Temporada[]>([]);
   const [cinturones, setCinturones] = useState<Cinturon[]>([]);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useLoading(true);
   const [activeTab, setActiveTab] = useState<'temporadas' | 'cinturones' | 'usuarios'>('temporadas');
 
   // Form states
@@ -108,7 +110,7 @@ const Settings = () => {
     }
   };
 
-  if (isLoading) return <div className="text-center py-8">Cargando...</div>;
+  if (isLoading) return <Loader text="Cargando configuración..." />;
 
   return (
     <div className={styles.container}>

@@ -3,6 +3,8 @@ import { useAuth } from "../../hooks/useAuth";
 import { useSeason } from "../../hooks/useSeason";
 import { dashboardAPI, type DashboardStats } from "../../services/dashboard.service";
 import { StatCard } from "../../components/common/StatCard/StatCard";
+import { Loader } from "../../components/common/Loader/Loader";
+import { useLoading } from "../../hooks/useLoading";
 import styles from "./Dashboard.module.css";
 import { toast } from "sonner";
 import { eventAPI } from "../../services/event.service";
@@ -20,7 +22,7 @@ const Dashboard = () => {
   });
 
   const [eventosTemporada, setEventosTemporada] = useState(0);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useLoading(true);
 
   useEffect(() => {
     const fetchStats = async () => {
@@ -73,7 +75,7 @@ const Dashboard = () => {
         <h3 className={styles.sectionHeader}>Alertas y Seguimiento</h3>
 
         {isLoading ? (
-          <div className="text-center py-8">Cargando métricas...</div>
+          <Loader text="Cargando métricas..." />
         ) : (
           <div className={styles.alertsGrid}>
             <StatCard
