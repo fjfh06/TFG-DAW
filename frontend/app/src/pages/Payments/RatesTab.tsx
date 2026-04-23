@@ -112,21 +112,23 @@ const RatesTab = () => {
       </div>
 
       {isFormOpen && (
-        <form onSubmit={handleSubmit} className="mb-4 p-4 border rounded bg-gray-50">
-          <h4 className="mb-4">{form.id ? "Editar Tarifa" : "Crear Tarifa"}</h4>
-          <div className="flex gap-4">
-            <div style={{ flex: 1 }}>
-              <label className="text-sm">Nombre de Tarifa</label>
-              <input required className="input" value={form.nombre} onChange={e => setForm({...form, nombre: e.target.value})} placeholder="Ej: Infantil 2 días" />
+        <form onSubmit={handleSubmit} className="formGlass mb-8 animate-in slide-in-from-top-4 duration-300">
+          <h4 className="text-xl font-black mb-6">{form.id ? "Editar Tarifa" : "Crear Tarifa"}</h4>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+            <div className="formGroup">
+              <label className="text-sm font-bold uppercase tracking-wider text-gray-600">Nombre de Tarifa</label>
+              <input required className="inputField" value={form.nombre} onChange={e => setForm({...form, nombre: e.target.value})} placeholder="Ej: Infantil 2 días" />
             </div>
-            <div style={{ width: "200px" }}>
-              <label className="text-sm">Precio Base (€)</label>
-              <input required type="number" step="0.01" className="input" value={form.precio_base} onChange={e => setForm({...form, precio_base: e.target.value})} placeholder="0.00" />
+            <div className="formGroup">
+              <label className="text-sm font-bold uppercase tracking-wider text-gray-600">Precio Base (€)</label>
+              <input required type="number" step="0.01" className="inputField" value={form.precio_base} onChange={e => setForm({...form, precio_base: e.target.value})} placeholder="0.00" />
             </div>
-            <div className="flex items-end gap-2">
-              <button type="button" className="btn" onClick={() => setIsFormOpen(false)}>Cancelar</button>
-              <button type="submit" className="btn btn-primary">Guardar</button>
-            </div>
+          </div>
+
+          <div className="flex justify-end gap-3 pt-6 border-t border-gray-100">
+            <button type="button" className="btn btn-secondary" onClick={() => setIsFormOpen(false)}>Cancelar</button>
+            <button type="submit" className="btn btn-primary">Guardar</button>
           </div>
         </form>
       )}

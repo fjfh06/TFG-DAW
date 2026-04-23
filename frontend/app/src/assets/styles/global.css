@@ -87,3 +87,9 @@ img {
 .gap-4 {
   gap: var(--spacing-md);
 }
+.mb-8 {
+  margin-bottom: var(--spacing-xl);
+}
+.mb-12 {
+  margin-bottom: var(--spacing-2xl);
+}

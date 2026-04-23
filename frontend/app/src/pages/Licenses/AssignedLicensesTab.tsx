@@ -165,15 +165,13 @@ const AssignedLicensesTab = () => {
              + Asignar Licencia
            </button>
         </div>
-      </div>
-
-      {isFormOpen && (
-        <form onSubmit={handleSubmit} className="mb-4 p-4 border rounded bg-gray-50 border-gray-200">
-          <h4 className="mb-4">{form.id ? "Editar Asignación" : "Asignar Licencia"}</h4>
+      </div>      {isFormOpen && (
+        <form onSubmit={handleSubmit} className="formGlass mb-8 animate-in slide-in-from-top-4 duration-300">
+          <h4 className="text-xl font-black mb-6">{form.id ? "Editar Asignación" : "Asignar Licencia"}</h4>
           
-          <div className="flex flex-wrap gap-4 mb-4">
-            <div style={{ flex: '1 1 200px' }}>
-              <label className="text-sm">Alumno *</label>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div className="formGroup">
+              <label className="text-sm font-bold uppercase tracking-wider text-gray-600">Alumno *</label>
               <SearchableSelect
                  options={alumnos.map(a => ({
                     id: a.id,
@@ -186,36 +184,36 @@ const AssignedLicensesTab = () => {
                  placeholder="Buscar alumno..."
               />
             </div>
-            <div style={{ flex: '1 1 200px' }}>
-              <label className="text-sm">Tipo de Licencia *</label>
-              <select required className="input" value={form.tipo_licencia_id} onChange={e => setForm({...form, tipo_licencia_id: e.target.value})}>
+            <div className="formGroup">
+              <label className="text-sm font-bold uppercase tracking-wider text-gray-600">Tipo de Licencia *</label>
+              <select required className="inputField" value={form.tipo_licencia_id} onChange={e => setForm({...form, tipo_licencia_id: e.target.value})}>
                 <option value="">Seleccione el tipo...</option>
                 {tipos.map(t => <option key={t.id} value={t.id}>{t.nombre}</option>)}
               </select>
             </div>
           </div>
           
-          <div className="flex flex-wrap gap-4 mb-4">
-            <div style={{ flex: 1 }}>
-              <label className="text-sm">Estado del Pago *</label>
-              <select required className="input" value={form.estado_pago} onChange={e => setForm({...form, estado_pago: e.target.value as EstadoPago})}>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div className="formGroup">
+              <label className="text-sm font-bold uppercase tracking-wider text-gray-600">Estado del Pago *</label>
+              <select required className="inputField" value={form.estado_pago} onChange={e => setForm({...form, estado_pago: e.target.value as EstadoPago})}>
                 <option value="pagado">Pagado Total</option>
                 <option value="parcial">Pago Parcial</option>
                 <option value="pendiente">Pendiente</option>
               </select>
             </div>
-            <div style={{ flex: 1 }}>
-              <label className="text-sm">Fecha de Pago</label>
-              <input type="date" className="input" value={form.fecha_pago} onChange={e => setForm({...form, fecha_pago: e.target.value})} disabled={form.estado_pago === 'pendiente'} />
+            <div className="formGroup">
+              <label className="text-sm font-bold uppercase tracking-wider text-gray-600">Fecha de Pago</label>
+              <input type="date" className="inputField" value={form.fecha_pago} onChange={e => setForm({...form, fecha_pago: e.target.value})} disabled={form.estado_pago === 'pendiente'} />
             </div>
           </div>
 
-          <div className="text-sm text-gray-500 mb-4 bg-gray-100 p-3 rounded">
+          <div className="text-sm text-gray-500 mb-8 bg-blue-50/50 p-4 rounded-xl border border-blue-100/50">
             ℹ️ <strong>Información:</strong> La validez oficial de las licencias se fija automáticamente desde el <strong>1 de Noviembre</strong> al <strong>31 de Octubre</strong> de la temporada en curso.
           </div>
 
-          <div className="flex justify-end gap-2">
-            <button type="button" className="btn" onClick={() => setIsFormOpen(false)}>Cancelar</button>
+          <div className="flex justify-end gap-3 pt-6 border-t border-gray-100">
+            <button type="button" className="btn btn-secondary" onClick={() => setIsFormOpen(false)}>Cancelar</button>
             <button type="submit" className="btn btn-primary">Guardar Asignación</button>
           </div>
         </form>

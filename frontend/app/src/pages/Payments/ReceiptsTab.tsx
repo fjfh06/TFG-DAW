@@ -222,12 +222,12 @@ const ReceiptsTab = () => {
       </div>
 
       {isFormOpen && (
-        <form onSubmit={handleSubmit} className="mb-4 p-4 border rounded bg-gray-50 border-gray-200">
-          <h4 className="mb-4">{form.id ? "Editar Recibo" : "Emitir Nuevo Recibo"}</h4>
+        <form onSubmit={handleSubmit} className="formGlass mb-8 animate-in slide-in-from-top-4 duration-300">
+          <h4 className="text-xl font-black mb-6">{form.id ? "Editar Recibo" : "Emitir Nuevo Recibo"}</h4>
           
-          <div className="flex flex-wrap gap-4 mb-4">
-            <div style={{ flex: '1 1 200px' }}>
-              <label className="text-sm">Alumno *</label>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div className="formGroup">
+              <label className="text-sm font-bold uppercase tracking-wider text-gray-600">Alumno *</label>
               <SearchableSelect
                  options={alumnos.map(a => ({
                     id: a.id,
@@ -241,58 +241,58 @@ const ReceiptsTab = () => {
               />
             </div>
             
-            <div style={{ flex: '1 1 200px' }}>
-              <label className="text-sm">Tarifa a aplicar</label>
-              <select className="input" value={form.tarifa_aplicada_id} onChange={e => setForm({...form, tarifa_aplicada_id: e.target.value})}>
+            <div className="formGroup">
+              <label className="text-sm font-bold uppercase tracking-wider text-gray-600">Tarifa a aplicar</label>
+              <select className="inputField" value={form.tarifa_aplicada_id} onChange={e => setForm({...form, tarifa_aplicada_id: e.target.value})}>
                 <option value="">Tarifa personalizada...</option>
                 {tarifas.map(t => <option key={t.id} value={t.id}>{t.nombre} ({Number(t.precio_base)}€)</option>)}
               </select>
             </div>
           </div>
 
-          <div className="flex flex-wrap gap-4 mb-4">
-            <div style={{ flex: 1 }}>
-              <label className="text-sm">Mes *</label>
-              <select required className="input" value={form.mes} onChange={e => setForm({...form, mes: e.target.value})}>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+            <div className="formGroup">
+              <label className="text-sm font-bold uppercase tracking-wider text-gray-600">Mes *</label>
+              <select required className="inputField" value={form.mes} onChange={e => setForm({...form, mes: e.target.value})}>
                 {Array.from({length: 12}, (_, i) => i + 1).map(m => (
                   <option key={m} value={m}>{new Date(2000, m-1, 1).toLocaleString('es', { month: 'long' })}</option>
                 ))}
               </select>
             </div>
-            <div style={{ flex: 1 }}>
-              <label className="text-sm">Año *</label>
-              <input required type="number" className="input" value={form.anio} onChange={e => setForm({...form, anio: e.target.value})} />
+            <div className="formGroup">
+              <label className="text-sm font-bold uppercase tracking-wider text-gray-600">Año *</label>
+              <input required type="number" className="inputField" value={form.anio} onChange={e => setForm({...form, anio: e.target.value})} />
             </div>
           </div>
 
-          <div className="flex flex-wrap gap-4 mb-4">
-            <div style={{ flex: 1 }}>
-              <label className="text-sm">Cantidad Final Cobrada (€) *</label>
-              <input required type="number" step="0.01" className="input" value={form.cantidad} onChange={e => setForm({...form, cantidad: e.target.value})} />
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+            <div className="formGroup">
+              <label className="text-sm font-bold uppercase tracking-wider text-gray-600">Cantidad Cobrada (€) *</label>
+              <input required type="number" step="0.01" className="inputField" value={form.cantidad} onChange={e => setForm({...form, cantidad: e.target.value})} />
             </div>
 
-            <div style={{ flex: 1 }}>
-              <label className="text-sm">Estado *</label>
-              <select required className="input" value={form.estado} onChange={e => setForm({...form, estado: e.target.value as EstadoPago})}>
+            <div className="formGroup">
+              <label className="text-sm font-bold uppercase tracking-wider text-gray-600">Estado *</label>
+              <select required className="inputField" value={form.estado} onChange={e => setForm({...form, estado: e.target.value as EstadoPago})}>
                 <option value="pagado">Pagado Total</option>
                 <option value="parcial">Pago Parcial</option>
                 <option value="pendiente">Pendiente (Deuda)</option>
               </select>
             </div>
             
-            <div style={{ flex: 1 }}>
-              <label className="text-sm">Fecha de Pago</label>
-              <input type="date" className="input" value={form.fecha_pago} onChange={e => setForm({...form, fecha_pago: e.target.value})} />
+            <div className="formGroup">
+              <label className="text-sm font-bold uppercase tracking-wider text-gray-600">Fecha de Pago</label>
+              <input type="date" className="inputField" value={form.fecha_pago} onChange={e => setForm({...form, fecha_pago: e.target.value})} />
             </div>
           </div>
 
-          <div className="mb-4">
-            <label className="text-sm">Observaciones</label>
-            <input type="text" className="input" value={form.observaciones} onChange={e => setForm({...form, observaciones: e.target.value})} placeholder="Ej: Faltan 10€, pagó en efectivo..." />
+          <div className="formGroup mb-8">
+            <label className="text-sm font-bold uppercase tracking-wider text-gray-600">Observaciones</label>
+            <input type="text" className="inputField" value={form.observaciones} onChange={e => setForm({...form, observaciones: e.target.value})} placeholder="Ej: Faltan 10€, pagó en efectivo..." />
           </div>
 
-          <div className="flex justify-end gap-2">
-            <button type="button" className="btn" onClick={() => setIsFormOpen(false)}>Cancelar</button>
+          <div className="flex justify-end gap-3 pt-6 border-t border-gray-100">
+            <button type="button" className="btn btn-secondary" onClick={() => setIsFormOpen(false)}>Cancelar</button>
             <button type="submit" className="btn btn-primary">Guardar Recibo</button>
           </div>
         </form>

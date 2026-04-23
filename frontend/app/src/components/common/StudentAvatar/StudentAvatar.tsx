@@ -25,14 +25,16 @@ export const StudentAvatar = ({ photoUrl, name, lastName, size = 'md', className
     if (initials === '?') return 'var(--color-gray-600)';
     
     const colors = [
-      'var(--color-primary-500)',
-      'var(--color-secondary-500)',
-      '#ef4444', // red
-      '#f59e0b', // amber
-      '#10b981', // emerald
-      '#3b82f6', // blue
-      '#8b5cf6', // violet
-      '#ec4899', // pink
+      '#1e40af', // Blue 800
+      '#b91c1c', // Red 700
+      '#047857', // Emerald 700
+      '#7c3aed', // Violet 600
+      '#c026d3', // Fuchsia 600
+      '#ea580c', // Orange 600
+      '#0369a1', // Sky 700
+      '#be185d', // Pink 700
+      '#111827', // Gray 900
+      '#1e3a8a', // Indigo 900
     ];
     
     const charCodeSum = initials.charCodeAt(0) + (initials.length > 1 ? initials.charCodeAt(1) : 0);

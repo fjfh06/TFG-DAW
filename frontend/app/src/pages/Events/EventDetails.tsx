@@ -187,14 +187,14 @@ const EventDetails = ({ evento, onBack }: Props) => {
   return (
     <div className={styles.container}>
       <div className={styles.eventHero}>
-        <button className={styles.actionBtn} onClick={onBack} style={{ position: 'absolute', top: '1.5rem', left: '1.5rem', zIndex: 10, background: 'rgba(255,255,255,0.2)', border: 'none', color: 'white' }}>
-          <ChevronLeft size={20} />
+        <button className={styles.backButton} onClick={onBack} title="Volver">
+          <ChevronLeft size={24} />
         </button>
         
         <div className={styles.heroContent}>
           <div className="flex items-center gap-2 mb-4 opacity-80">
             <Trophy size={20} />
-            <span className="text-xs font-black uppercase tracking-widest">{evento.tipo}</span>
+            <span className="text-xs font-black uppercase tracking-widest">{evento.tipo.toUpperCase()}</span>
           </div>
           <h2 className={styles.heroTitle}>{evento.nombre}</h2>
           
@@ -235,6 +235,57 @@ const EventDetails = ({ evento, onBack }: Props) => {
             <UserPlus size={18} className="mr-2" /> Inscribir Alumno
           </button>
         </div>
+
+        {isFormOpen && (
+           <div className="formGlass mb-12 animate-in slide-in-from-top-4 duration-300">
+              <h3 className="text-2xl font-black mb-8">{form.id ? "Actualizar Inscripción" : "Nueva Inscripción"}</h3>
+              <form onSubmit={handleSubmit}>
+                 {!form.id && (
+                    <div className="formGroup mb-6">
+                       <label>Alumno *</label>
+                       <SearchableSelect 
+                          options={alumnos.filter(a => a.activo).map(a => ({
+                              id: a.id,
+                              label: `${a.nombre} ${a.apellidos}`,
+                              sublabel: a.dni || '',
+                              image: a.foto
+                          }))}
+                          value={form.alumno_id}
+                          onChange={(id) => setForm({...form, alumno_id: id.toString()})}
+                          placeholder="Busca un alumno..."
+                       />
+                    </div>
+                 )}
+
+                 <div className="formRow mb-6">
+                    <div className="formGroup">
+                       <label>Categoría</label>
+                       <input className="inputField" value={form.categoria} onChange={e => setForm({...form, categoria: e.target.value})} placeholder="Ej: Mano Vacia Masculino +18" />
+                    </div>
+                 </div>
+
+                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                    <div className="formGroup">
+                       <label>Estado del Pago</label>
+                       <select className="inputField" value={form.estado_pago} onChange={e => setForm({...form, estado_pago: e.target.value as EstadoPagoParticipacion})}>
+                          <option value="pagado">Pagado</option>
+                          <option value="pendiente">Pendiente</option>
+                          <option value="no_aplica">No Aplica</option>
+                       </select>
+                    </div>
+                    <div className="formGroup">
+                       <label>Precio Final (€)</label>
+                       <input type="number" step="0.01" className="inputField" value={form.precio_pactado} onChange={e => setForm({...form, precio_pactado: e.target.value})} />
+                    </div>
+                 </div>
+
+                 <div className="flex justify-end gap-3 pt-6 border-t border-gray-100">
+                    <button type="button" className="btn btn-secondary" onClick={() => setIsFormOpen(false)}>Cancelar</button>
+                    <button type="submit" className="btn btn-primary">Guardar</button>
+                 </div>
+              </form>
+           </div>
+        )}
 
         <div className="tableWrapper">
           <table className="premiumTable">
@@ -300,61 +351,7 @@ const EventDetails = ({ evento, onBack }: Props) => {
         </div>
       </div>
 
-      {/* PARTICIPANT MODAL */}
-      {isFormOpen && (
-         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-            <div className="formGlass w-full max-w-2xl animate-in zoom-in-95 duration-200">
-               <h3 className="text-2xl font-black mb-8">{form.id ? "Actualizar Inscripción" : "Nueva Inscripción"}</h3>
-               <form onSubmit={handleSubmit}>
-                  {!form.id && (
-                     <div className="formGroup mb-6">
-                        <label>Alumno *</label>
-                        <SearchableSelect 
-                           options={alumnos.filter(a => a.activo).map(a => ({
-                              id: a.id,
-                              label: `${a.nombre} ${a.apellidos}`,
-                              sublabel: a.dni || '',
-                              image: a.foto
-                           }))}
-                           value={form.alumno_id}
-                           onChange={(id) => setForm({...form, alumno_id: id.toString()})}
-                           placeholder="Busca un alumno..."
-                        />
-                     </div>
-                  )}
-
-                  <div className="formRow mb-6">
-                     <div className="formGroup">
-                        <label>Categoría</label>
-                        <input className="inputField" value={form.categoria} onChange={e => setForm({...form, categoria: e.target.value})} placeholder="Ej: Mano Vacio Masculino +18" />
-                     </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-                     <div className="formGroup">
-                        <label>Estado del Pago</label>
-                        <select className="inputField" value={form.estado_pago} onChange={e => setForm({...form, estado_pago: e.target.value as EstadoPagoParticipacion})}>
-                           <option value="pagado">Pagado</option>
-                           <option value="pendiente">Pendiente</option>
-                           <option value="no_aplica">No Aplica</option>
-                        </select>
-                     </div>
-                     <div className="formGroup">
-                        <label>Precio Final (€)</label>
-                        <input type="number" step="0.01" className="inputField" value={form.precio_pactado} onChange={e => setForm({...form, precio_pactado: e.target.value})} />
-                     </div>
-                  </div>
-
-                  <div className="flex justify-end gap-3 pt-6 border-t border-gray-100">
-                     <button type="button" className="btn btn-secondary" onClick={() => setIsFormOpen(false)}>Cancelar</button>
-                     <button type="submit" className="btn btn-primary">Guardar Inscripción</button>
-                  </div>
-               </form>
-            </div>
-         </div>
-      )}
-
-      {/* RESULTS MODAL */}
+      {/* RESULTS MODAL - Keep this as modal as it is specific and less frequent */}
       {resultFormOpen && (
          <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
             <div className="formGlass w-full max-w-2xl animate-in fade-in zoom-in-95 duration-200 border-amber-200">

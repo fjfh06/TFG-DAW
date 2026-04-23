@@ -49,10 +49,15 @@ def get_participaciones():
 def add_participante(evento_id):
     data = request.json
     try:
-        # Check if already participating
-        exists = Participacion.query.filter_by(evento_id=evento_id, alumno_id=data['alumno_id']).first()
+        # Check if already participating in THIS category
+        exists = Participacion.query.filter_by(
+            evento_id=evento_id, 
+            alumno_id=data['alumno_id'],
+            categoria=data.get('categoria')
+        ).first()
+        
         if exists:
-            return jsonify({'error': 'El alumno ya está inscrito en este evento'}), 400
+            return jsonify({'error': 'El alumno ya está inscrito en esta categoría para este evento'}), 400
 
         new_part = Participacion(
             evento_id=evento_id,
@@ -77,7 +82,19 @@ def update_participacion(id):
     try:
         if 'estado_pago' in data: part.estado_pago = data['estado_pago']
         if 'estado_inscripcion' in data: part.estado_inscripcion = data['estado_inscripcion']
-        if 'categoria' in data: part.categoria = data['categoria']
+        
+        if 'categoria' in data:
+            # Check if changing to a category that already exists for this student in this event
+            if data['categoria'] != part.categoria:
+                exists = Participacion.query.filter_by(
+                    evento_id=part.evento_id,
+                    alumno_id=part.alumno_id,
+                    categoria=data['categoria']
+                ).first()
+                if exists:
+                    return jsonify({'error': 'El alumno ya tiene una inscripción en esa categoría'}), 400
+            part.categoria = data['categoria']
+            
         if 'precio_pactado' in data: part.precio_pactado = data['precio_pactado']
         
         db.session.commit()

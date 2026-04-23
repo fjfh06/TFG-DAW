@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import { useAuth } from "../../hooks/useAuth";
 import { useSeason } from "../../hooks/useSeason";
 import { dashboardAPI, type DashboardStats } from "../../services/dashboard.service";
@@ -136,10 +137,10 @@ const Dashboard = () => {
       <div className={styles.shortcuts}>
          <h4>Accesos Rápidos</h4>
          <div className={styles.shortcutsGrid}>
-           <a href="/alumnos/nuevo" className="btn btn-primary">+ Nuevo Alumno</a>
-           <a href="/asistencia" className="btn bg-white border border-gray-300 text-gray-800">Pasar Lista Hoy</a>
-           <a href="/cobros" className="btn bg-white border border-gray-300 text-gray-800">Revisar Pagos</a>
-           <a href="/eventos" className="btn bg-white border border-gray-300 text-gray-800">Ver Eventos</a>
+           <Link to="/alumnos/nuevo" className="btn btn-primary">+ Nuevo Alumno</Link>
+           <Link to="/asistencia" className="btn bg-white border border-gray-300 text-gray-800">Pasar Lista Hoy</Link>
+           <Link to="/cobros" className="btn bg-white border border-gray-300 text-gray-800">Revisar Pagos</Link>
+           <Link to="/eventos" className="btn bg-white border border-gray-300 text-gray-800">Ver Eventos</Link>
          </div>
       </div>
     </div>

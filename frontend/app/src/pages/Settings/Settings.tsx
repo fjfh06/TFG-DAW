@@ -150,23 +150,28 @@ const Settings = () => {
         </div>
 
         {showTemporadaForm && (
-          <div className={styles.formGrid}>
-            <div className={styles.formGroup}>
-              <label>Nombre</label>
-              <input type="text" value={tempFormData.nombre} onChange={e => setTempFormData({...tempFormData, nombre: e.target.value})} placeholder="Ej. 2025/2026" />
+          <div className="formGlass mb-8 animate-in slide-in-from-top-4 duration-300">
+            <h4 className="text-xl font-black mb-6">{tempFormData.id ? "Editar Temporada" : "Nueva Temporada"}</h4>
+            <div className="formRow">
+              <div className="formGroup">
+                <label>Nombre de la Temporada</label>
+                <input type="text" className="inputField" value={tempFormData.nombre} onChange={e => setTempFormData({...tempFormData, nombre: e.target.value})} placeholder="Ej. 2025/2026" />
+              </div>
             </div>
-            <div className={styles.formGroup}>
-              <label>Fecha Inicio</label>
-              <input type="date" value={tempFormData.fecha_inicio} onChange={e => setTempFormData({...tempFormData, fecha_inicio: e.target.value})} />
+            <div className="formRow">
+              <div className="formGroup">
+                <label>Fecha Inicio</label>
+                <input type="date" className="inputField" value={tempFormData.fecha_inicio} onChange={e => setTempFormData({...tempFormData, fecha_inicio: e.target.value})} />
+              </div>
+              <div className="formGroup">
+                <label>Fecha Fin</label>
+                <input type="date" className="inputField" value={tempFormData.fecha_fin} onChange={e => setTempFormData({...tempFormData, fecha_fin: e.target.value})} />
+              </div>
             </div>
-            <div className={styles.formGroup}>
-              <label>Fecha Fin</label>
-              <input type="date" value={tempFormData.fecha_fin} onChange={e => setTempFormData({...tempFormData, fecha_fin: e.target.value})} />
+            <div className="flex justify-end gap-3 pt-6 border-t border-gray-100 mt-6">
+              <button className="btn btn-secondary" onClick={() => setShowTemporadaForm(false)}>Cancelar</button>
+              <button className="btn btn-primary" onClick={handleSaveTemporada}>Guardar</button>
             </div>
-             <div className={styles.btnGroup}>
-                <button className="btn btn-primary" onClick={handleSaveTemporada}>Guardar</button>
-                <button className="btn btn-secondary" onClick={() => setShowTemporadaForm(false)}>Cancelar</button>
-             </div>
           </div>
         )}
 
@@ -217,19 +222,22 @@ const Settings = () => {
         </div>
 
         {showCinturonForm && (
-          <div className={styles.formGrid}>
-            <div className={styles.formGroup}>
-              <label>Color (Nombre)</label>
-              <input type="text" value={cinturonFormData.nombre} onChange={e => setCinturonFormData({...cinturonFormData, nombre: e.target.value})} placeholder="Ej. Blanco" />
+          <div className="formGlass mb-8 animate-in slide-in-from-top-4 duration-300">
+            <h4 className="text-xl font-black mb-6">{cinturonFormData.id ? "Editar Cinturón" : "Nuevo Cinturón"}</h4>
+            <div className="formRow">
+              <div className="formGroup">
+                <label>Color (Nombre)</label>
+                <input type="text" className="inputField" value={cinturonFormData.nombre} onChange={e => setCinturonFormData({...cinturonFormData, nombre: e.target.value})} placeholder="Ej. Blanco" />
+              </div>
+              <div className="formGroup">
+                <label>Orden Jerárquico</label>
+                <input type="number" className="inputField" value={cinturonFormData.orden_jerarquia} onChange={e => setCinturonFormData({...cinturonFormData, orden_jerarquia: parseInt(e.target.value)})} />
+              </div>
             </div>
-            <div className={styles.formGroup}>
-              <label>Orden (Menor = Más bajo)</label>
-              <input type="number" value={cinturonFormData.orden_jerarquia} onChange={e => setCinturonFormData({...cinturonFormData, orden_jerarquia: parseInt(e.target.value)})} />
+            <div className="flex justify-end gap-3 pt-6 border-t border-gray-100 mt-6">
+              <button className="btn btn-secondary" onClick={() => setShowCinturonForm(false)}>Cancelar</button>
+              <button className="btn btn-primary" onClick={handleSaveCinturon}>Guardar</button>
             </div>
-             <div className={styles.btnGroup}>
-                <button className="btn btn-primary" onClick={handleSaveCinturon}>Guardar</button>
-                <button className="btn btn-secondary" onClick={() => setShowCinturonForm(false)}>Cancelar</button>
-             </div>
           </div>
         )}
 
