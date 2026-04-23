@@ -95,5 +95,26 @@ export const studentAPI = {
       ...reqOpts
     });
     if (!response.ok) throw new Error("Error al eliminar alumno");
+  },
+
+  async convertHeicPreview(file: File): Promise<string> {
+    const formData = new FormData();
+    formData.append('foto', file);
+    
+    const response = await fetch(`${API_URL}/utils/convert-preview`, {
+      method: 'POST',
+      headers: getHeaders(true),
+      body: formData,
+      ...reqOpts
+    });
+    
+    if (!response.ok) throw new Error("Error en conversión");
+    
+    const blob = await response.blob();
+    return new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.onloadend = () => resolve(reader.result as string);
+      reader.readAsDataURL(blob);
+    });
   }
 };

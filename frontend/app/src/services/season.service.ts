@@ -11,7 +11,9 @@ export const seasonAPI = {
       credentials: "include",
     });
     if (!response.ok) {
-      throw new Error("Error al obtener temporadas");
+      const error = new Error("Error al obtener temporadas");
+      (error as any).status = response.status;
+      throw error;
     }
     return response.json();
   },

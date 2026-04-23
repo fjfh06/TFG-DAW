@@ -57,7 +57,6 @@ const Login = () => {
 
         <form 
           id="login_form"
-          method="POST"
           action={handleSubmit} 
           className={styles.loginForm}
         >

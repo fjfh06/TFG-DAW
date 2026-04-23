@@ -38,8 +38,10 @@ export const SeasonProvider = ({ children }: { children: ReactNode }) => {
         // Default: use active season, fallback to last
         setCurrentSeasonState(activeSeason ?? data[data.length - 1]);
       }
-    } catch (error) {
-      console.error("Error cargando temporadas:", error);
+    } catch (error: any) {
+      if (error.status !== 401) {
+        console.error("Error cargando temporadas:", error);
+      }
     } finally {
       setIsLoadingSeasons(false);
     }

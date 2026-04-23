@@ -13,8 +13,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const fetchUser = async () => {
     try {
       const userData = await authAPI.getMe();
-      setUser(userData);
-    } catch {
+      setUser(userData); // Si es null, simplemente marcamos que no hay usuario
+    } catch (error: any) {
+      // Solo logueamos si NO es un error de autorización (aunque ahora getMe ya retorna null en 401)
+      if (error.status !== 401) {
+        console.error("Error cargando usuario:", error);
+      }
       setUser(null);
     } finally {
       setIsLoading(false);

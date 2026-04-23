@@ -24,8 +24,14 @@ export const authAPI = {
       credentials: "include",
     });
     
+    if (response.status === 401) {
+      return null as any; // Retornamos null si no hay sesión
+    }
+    
     if (!response.ok) {
-      throw new Error("Error al obtener información del usuario");
+      const error = new Error("Error al obtener información del usuario");
+      (error as any).status = response.status;
+      throw error;
     }
     return response.json();
   },

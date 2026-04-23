@@ -2,13 +2,10 @@ import os
 from datetime import timedelta
 from flask import Flask, jsonify
 from flask_cors import CORS
-from extensions import db
+from extensions import db, jwt
 from models import * # Import all models to ensure they are registered with SQLAlchemy
-
-# Import Blueprints
 from flask_jwt_extended import JWTManager
 from werkzeug.security import generate_password_hash
-from extensions import db, jwt # Ensure jwt is imported from extensions
 
 # Import Blueprints
 from controllers.usuarios.UserController import user_bp
@@ -25,12 +22,12 @@ from controllers.eventos.ParticipacionController import participacion_bp
 from controllers.eventos.AsistenciaController import asistencia_bp
 from controllers.dashboard.DashboardController import dashboard_bp
 from controllers.auth.AuthController import auth_bp
+from controllers.utilidades.UtilsController import utils_bp
 
 def create_app():
     app = Flask(__name__)
 
     # Configuration
-    # Construcción de la URL de la base de datos desde componentes
     db_user = os.environ.get('MYSQL_USER', 'root')
     db_pass = os.environ.get('MYSQL_PASSWORD', 'root')
     db_host = os.environ.get('DB_HOST', 'db')
@@ -50,9 +47,8 @@ def create_app():
     
     # JWT Cookie Config
     app.config['JWT_TOKEN_LOCATION'] = ['cookies']
-    app.config['JWT_COOKIE_SECURE'] = os.environ.get('FLASK_ENV') == 'production' # True in prod for HTTPS
+    app.config['JWT_COOKIE_SECURE'] = os.environ.get('FLASK_ENV') == 'production'
     app.config['JWT_COOKIE_SAMESITE'] = 'Lax'
-    # app.config['JWT_COOKIE_CSRF_PROTECT'] = True # Only if CSRF headers are implemented manually in frontend
     app.config['JWT_COOKIE_CSRF_PROTECT'] = True
     app.config["JWT_SESSION_COOKIE"] = False
     app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(hours=12)
@@ -60,30 +56,25 @@ def create_app():
     # Extensions
     db.init_app(app)
     jwt.init_app(app)
-    CORS(app, supports_credentials=True) # Enable CORS with credentials
+    CORS(app, supports_credentials=True)
 
     # Register Blueprints
     app.register_blueprint(auth_bp, url_prefix='/api/auth')
-    # Usuarios
     app.register_blueprint(user_bp, url_prefix='/api/users')
     app.register_blueprint(alumno_bp, url_prefix='/api/alumnos')
     app.register_blueprint(cinturon_bp, url_prefix='/api/cinturones')
-    # Configuracion
     app.register_blueprint(temporada_bp, url_prefix='/api/config/temporadas')
     app.register_blueprint(tarifa_bp, url_prefix='/api/config/tarifas')
     app.register_blueprint(tipolicencia_bp, url_prefix='/api/config/tipos-licencia')
-    # Pagos
     app.register_blueprint(licencia_alumno_bp, url_prefix='/api/licencias')
     app.register_blueprint(inscripcion_bp, url_prefix='/api/pagos/inscripciones')
     app.register_blueprint(pago_bp, url_prefix='/api/pagos/mensualidades')
-    # Eventos
     app.register_blueprint(evento_bp, url_prefix='/api/eventos')
     app.register_blueprint(participacion_bp, url_prefix='/api/eventos/participaciones')
     app.register_blueprint(asistencia_bp, url_prefix='/api/asistencia')
-    # Dashboard
     app.register_blueprint(dashboard_bp, url_prefix='/api/dashboard')
+    app.register_blueprint(utils_bp, url_prefix='/api/utils')
 
-    # Global Error Handler (Optional)
     @app.errorhandler(404)
     def not_found(error):
         return jsonify({"error": "Resource not found"}), 404
@@ -107,7 +98,6 @@ if __name__ == '__main__':
                 db.create_all()
                 print("Database tables created successfully.")
                 
-                # Check if admin user exists, create if not
                 admin_username = os.environ.get('ADMIN_USER', 'shifu')
                 admin_password = os.environ.get('ADMIN_PASSWORD', 'admin')
                 

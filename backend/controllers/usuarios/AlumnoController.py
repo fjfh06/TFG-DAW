@@ -5,6 +5,7 @@ from models.usuarios.User import User
 from werkzeug.utils import secure_filename
 from flask_jwt_extended import jwt_required, get_jwt_identity
 from utils.decorators import admin_required, roles_required
+from utils.image_processing import process_and_save_image
 import os
 import time
 
@@ -13,8 +14,9 @@ alumno_bp = Blueprint('alumno_bp', __name__)
 UPLOAD_FOLDER = 'static/uploads/alumnos'
 
 def allowed_file(filename):
+    allowed = {'png', 'jpg', 'jpeg', 'gif', 'webp', 'heic', 'heif', 'bmp', 'tiff'}
     return '.' in filename and \
-           filename.rsplit('.', 1)[1].lower() in {'png', 'jpg', 'jpeg', 'gif'}
+           filename.rsplit('.', 1)[1].lower() in allowed
 
 @alumno_bp.route('/foto/<filename>', methods=['GET'])
 @jwt_required()
@@ -134,9 +136,9 @@ def create_alumno():
         if 'foto' in request.files:
             file = request.files['foto']
             if file and file.filename != '' and allowed_file(file.filename):
-                extension = file.filename.rsplit('.', 1)[1].lower()
                 clean_nombre = secure_filename(new_alumno.nombre)
-                new_filename = f"{new_alumno.id}_{clean_nombre}_{int(time.time())}.{extension}"
+                # Siempre guardamos como .jpg después del procesamiento
+                new_filename = f"{new_alumno.id}_{clean_nombre}_{int(time.time())}.jpg"
                 
                 from flask import current_app
                 base_dir = os.path.abspath(current_app.root_path)
@@ -144,10 +146,10 @@ def create_alumno():
                 os.makedirs(upload_dir, exist_ok=True)
                 
                 file_path = os.path.join(upload_dir, new_filename)
-                file.save(file_path)
                 
-                new_alumno.foto = new_filename
-                db.session.commit()
+                if process_and_save_image(file, file_path):
+                    new_alumno.foto = new_filename
+                    db.session.commit()
                 
         return jsonify({'message': 'Alumno created', 'id': new_alumno.id}), 201
         
@@ -188,27 +190,36 @@ def update_alumno(id):
                 from flask import current_app
                 base_dir = os.path.abspath(current_app.root_path)
                 upload_dir = os.path.join(base_dir, 'static', 'uploads', 'alumnos')
+                
+                print(f"Procesando nueva foto para alumno {id}: {file.filename}")
+                
                 if alumno.foto:
                     old_path = os.path.join(upload_dir, alumno.foto)
                     if os.path.exists(old_path):
                         os.remove(old_path)
                 
-                extension = file.filename.rsplit('.', 1)[1].lower()
                 clean_nombre = secure_filename(alumno.nombre)
-                new_filename = f"{alumno.id}_{clean_nombre}_{int(time.time())}.{extension}"
+                # Siempre guardamos como .jpg después del procesamiento
+                new_filename = f"{alumno.id}_{clean_nombre}_{int(time.time())}.jpg"
                 
                 os.makedirs(upload_dir, exist_ok=True)
                 file_path = os.path.join(upload_dir, new_filename)
                 
-                file.save(file_path)
-                alumno.foto = new_filename
+                if process_and_save_image(file, file_path):
+                    alumno.foto = new_filename
+                    print(f"Foto guardada exitosamente: {new_filename}")
+                else:
+                    print(f"Error procesando imagen para alumno {id}")
 
         db.session.commit()
         return jsonify({'message': 'Alumno updated'}), 200
         
     except Exception as e:
+        import traceback
+        print("--- ERROR EN UPDATE_ALUMNO ---")
+        traceback.print_exc()
         db.session.rollback()
-        return jsonify({'error': str(e)}), 500
+        return jsonify({'error': f"Error interno: {str(e)}"}), 500
 
 @alumno_bp.route('/<int:id>', methods=['DELETE'])
 @jwt_required()

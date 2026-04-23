@@ -38,6 +38,7 @@ const StudentForm = () => {
   // Para mostrar la foto actual o la previsualización
   const [currentPhoto, setCurrentPhoto] = useState<string | null>(null);
   const [previewUrl, setPreviewUrl] = useState<string | null>(null);
+  const [isPhotoLoading, setIsPhotoLoading] = useState(false);
 
   useEffect(() => {
     const init = async () => {
@@ -163,6 +164,25 @@ const StudentForm = () => {
     } else if (type === "file") {
       const file = (e.target as HTMLInputElement).files?.[0];
       if (file) {
+        // Soporte para archivos HEIC (iPhone) vía servidor para mayor rapidez
+        if (file.name.toLowerCase().endsWith('.heic') || file.name.toLowerCase().endsWith('.heif')) {
+          setPreviewUrl(null);
+          setIsPhotoLoading(true);
+          
+          studentAPI.convertHeicPreview(file)
+            .then(url => {
+              setPreviewUrl(url);
+              setIsPhotoLoading(false);
+            })
+            .catch(err => {
+              console.error("Error previsualizando HEIC:", err);
+              setPreviewUrl("HEIC_FORMAT");
+              setIsPhotoLoading(false);
+            });
+          
+          return;
+        }
+
         const reader = new FileReader();
         reader.onloadend = () => {
           setPreviewUrl(reader.result as string);
@@ -311,12 +331,24 @@ const StudentForm = () => {
         <div className={styles.formSidebar}>
            <div className={styles.photoSection}>
              <h4>Fotografía de Perfil</h4>
-             <StudentAvatar 
-                name={formValues.nombre || "N"} 
-                lastName={formValues.apellidos || ""} 
-                photoUrl={previewUrl || currentPhoto} 
-                size="xl" 
-             />
+             {isPhotoLoading ? (
+               <div className="flex flex-col items-center justify-center bg-gray-100 rounded-full w-32 h-32 border-2 border-dashed border-blue-200">
+                 <div className={styles.spinnerSmall}></div>
+                 <span className="text-[10px] text-blue-600 mt-2 font-medium">Procesando...</span>
+               </div>
+             ) : previewUrl === "HEIC_FORMAT" ? (
+               <div className="flex flex-col items-center justify-center bg-blue-50 rounded-full w-32 h-32 border-2 border-dashed border-blue-400">
+                 <span className="text-blue-600 font-bold text-xl">HEIC</span>
+                 <span className="text-[9px] text-blue-500 text-center px-2 leading-tight">Foto de iPhone<br/>Lista para subir</span>
+               </div>
+             ) : (
+               <StudentAvatar 
+                  name={formValues.nombre || "N"} 
+                  lastName={formValues.apellidos || ""} 
+                  photoUrl={previewUrl || currentPhoto} 
+                  size="xl" 
+               />
+             )}
              <div className={styles.fileInputWrapper}>
                 <input 
                   type="file" 
@@ -325,7 +357,7 @@ const StudentForm = () => {
                   className={styles.fileInput} 
                   onChange={handleInputChange}
                 />
-                <p className="text-xs text-gray-500 mt-3">JPG o PNG. Se reemplazará la actual.</p>
+                <p className="text-xs text-gray-500 mt-3">Se aceptan todos los formatos (JPG, PNG, WebP, HEIC...). Se optimizará automáticamente.</p>
              </div>
            </div>
         </div>
