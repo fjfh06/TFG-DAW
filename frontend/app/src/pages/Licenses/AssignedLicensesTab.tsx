@@ -24,7 +24,7 @@ const AssignedLicensesTab = () => {
     id: 0,
     alumno_id: "",
     tipo_licencia_id: "",
-    estado_pago: "pendiente" as EstadoPago,
+    estado_pago: "pagado" as EstadoPago,
     fecha_pago: "",
     fecha_inicio_validez: "",
     fecha_fin_validez: ""
@@ -81,7 +81,7 @@ const AssignedLicensesTab = () => {
 
       setForm({
         id: 0, alumno_id: "", tipo_licencia_id: "",
-        estado_pago: "pendiente", fecha_pago: todayStr,
+        estado_pago: "pagado", fecha_pago: todayStr,
         fecha_inicio_validez: d_inicio, fecha_fin_validez: d_fin
       });
     }
@@ -110,12 +110,9 @@ const AssignedLicensesTab = () => {
       }
       setIsFormOpen(false);
       fetchData();
-    } catch (error) {
-       if (error instanceof Error) {
-         toast.error(error.message);
-       } else {
-         toast.error("Error al procesar la licencia");
-       }
+    } catch (error: any) {
+      console.error(error);
+      toast.error(error.message || "Error al procesar la licencia");
     }
   };
 
@@ -158,7 +155,7 @@ const AssignedLicensesTab = () => {
         <div className="flex gap-2">
            {filtroParam === 'sin_licencia' && (
               <button className="btn btn-secondary bg-amber-50 text-amber-600 border-amber-200" onClick={() => setSearchParams({})}>
-                ❌ Quitar Filtro Sin Licencia
+                ❌ Quitar Filtro
               </button>
            )}
            <button className="btn btn-primary" onClick={() => handleOpenForm()}>

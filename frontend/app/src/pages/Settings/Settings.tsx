@@ -52,19 +52,23 @@ const Settings = () => {
   // --- TEMPORADAS ---
   const handleSaveTemporada = async () => {
     try {
-      const isActiva = isTemporadaActiva(tempFormData.fecha_inicio, tempFormData.fecha_fin);
-      const dataToSave = { ...tempFormData, activa: isActiva };
+      const { id, ...dataToSave } = tempFormData;
 
-      if (tempFormData.id) {
-        await seasonAPI.updateTemporada(tempFormData.id, dataToSave);
-        toast.success("Temporada actualizada");
+      if (id) {
+        await seasonAPI.updateTemporada(id, dataToSave);
       } else {
         await seasonAPI.createTemporada(dataToSave);
-        toast.success("Temporada creada");
       }
+
       setShowTemporadaForm(false);
       setTempFormData({ id: 0, nombre: '', fecha_inicio: '', fecha_fin: '', activa: false });
-      fetchData();
+      
+      toast.success(id ? "Temporada actualizada" : "Temporada creada");
+      
+      // Recargamos la web para que los cambios de temporada surtan efecto en toda la app
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     } catch {
       toast.error("Error al guardar temporada");
     }
@@ -75,7 +79,9 @@ const Settings = () => {
     try {
       await seasonAPI.deleteTemporada(id);
       toast.success("Temporada eliminada");
-      fetchData();
+      setTimeout(() => {
+        window.location.reload();
+      }, 1000);
     } catch {
       toast.error("Error al eliminar (puede tener dependencias)");
     }
@@ -168,6 +174,19 @@ const Settings = () => {
                 <input type="date" className="inputField" value={tempFormData.fecha_fin} onChange={e => setTempFormData({...tempFormData, fecha_fin: e.target.value})} />
               </div>
             </div>
+            <div className="formRow">
+              <div className="formGroup">
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input 
+                    type="checkbox" 
+                    checked={tempFormData.activa} 
+                    onChange={e => setTempFormData({...tempFormData, activa: e.target.checked})}
+                    className="w-4 h-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-500"
+                  />
+                  <span>Temporada Activa (Esta temporada se usará para nuevas inscripciones y filtros por defecto)</span>
+                </label>
+              </div>
+            </div>
             <div className="flex justify-end gap-3 pt-6 border-t border-gray-100 mt-6">
               <button className="btn btn-secondary" onClick={() => setShowTemporadaForm(false)}>Cancelar</button>
               <button className="btn btn-primary" onClick={handleSaveTemporada}>Guardar</button>
@@ -190,9 +209,12 @@ const Settings = () => {
               {temporadas.map(t => (
                 <tr key={t.id}>
                   <td className="sticky-col font-bold">{t.nombre}</td>
-                  <td>{t.fecha_inicio}</td>
+                  <td>{t.fecha_inicio ? t.fecha_inicio.split('T')[0] : ''}</td>
                   <td>{t.fecha_fin ? t.fecha_fin.split('T')[0] : ''}</td>
-                  <td>{isTemporadaActiva(t.fecha_inicio, t.fecha_fin) && <span className="badge badge-success">Temporada Actual</span>}</td>
+                  <td>
+                    {/* {t.activa && <span className="badge badge-success mr-2">Activa</span>} */}
+                    {isTemporadaActiva(t.fecha_inicio, t.fecha_fin) && <span className="badge badge-info">Temporada Actual</span>}
+                  </td>
                   <td>
                     <div className="flex justify-end gap-2">
                         <button className="btn btn-secondary btn-sm" onClick={() => {

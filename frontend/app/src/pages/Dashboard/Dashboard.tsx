@@ -51,7 +51,7 @@ const Dashboard = () => {
        <div className={styles.container}>
          <div className={styles.welcomeCard}>
             <h2>Hola, {user?.nombre} 👋</h2>
-            <p className="text-gray-600 mt-2">
+            <p>
               Bienvenido al panel, estás en la temporada: <strong>{currentSeason?.nombre || "Ninguna"}</strong>
             </p>
          </div>

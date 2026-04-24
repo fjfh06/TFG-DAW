@@ -29,7 +29,7 @@ export const seasonAPI = {
   },
 
   async updateTemporada(id: number, data: Partial<Temporada>): Promise<void> {
-    const response = await fetch(`${API_URL}/config/temporadas/${id}/`, {
+    const response = await fetch(`${API_URL}/config/temporadas/${id}`, {
       method: 'PUT',
       headers: getHeaders(),
       body: JSON.stringify(data),
@@ -39,7 +39,7 @@ export const seasonAPI = {
   },
 
   async deleteTemporada(id: number): Promise<void> {
-    const response = await fetch(`${API_URL}/config/temporadas/${id}/`, {
+    const response = await fetch(`${API_URL}/config/temporadas/${id}`, {
       method: 'DELETE',
       headers: getHeaders(),
       credentials: "include"

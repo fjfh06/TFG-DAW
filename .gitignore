@@ -36,3 +36,9 @@ dist-ssr
 # Alumnos uploads
 backend/static/uploads/alumnos/*
 !backend/static/uploads/alumnos/default.png
+
+# Frontend Images
+frontend/app/public/images/*
+!frontend/app/public/images/default.png
+frontend/app/public/icon-192.png
+frontend/app/public/icon-512.png

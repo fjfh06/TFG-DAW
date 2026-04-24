@@ -47,14 +47,20 @@ export const licenciaAPI = {
     const response = await fetch(`${API_URL}/licencias/`, {
       method: 'POST', headers: getHeaders(), body: JSON.stringify(data), credentials: "include"
     });
-    if (!response.ok) throw new Error("Error asignando licencia");
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.error || "Error asignando licencia");
+    }
     return response.json();
   },
   async updateLicencia(id: number, data: Partial<LicenciaAlumno>): Promise<void> {
     const response = await fetch(`${API_URL}/licencias/${id}`, {
       method: 'PUT', headers: getHeaders(), body: JSON.stringify(data), credentials: "include"
     });
-    if (!response.ok) throw new Error("Error actualizando licencia");
+    if (!response.ok) {
+      const errorData = await response.json().catch(() => ({}));
+      throw new Error(errorData.error || "Error actualizando licencia");
+    }
   },
   async deleteLicencia(id: number): Promise<void> {
     const response = await fetch(`${API_URL}/licencias/${id}`, {

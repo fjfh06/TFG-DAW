@@ -22,8 +22,8 @@ const ProtectedRoute = ({ children, allowedRoles }: ProtectedRouteProps) => {
   }
 
   if (allowedRoles && !allowedRoles.includes(user.rol)) {
-    // Redirigir a inicio si no tiene permisos
-    return <Navigate to="/" replace />;
+    // Redirigir a NotFound (404) si no tiene permisos
+    return <Navigate to="/404" replace />;
   }
 
   return children;

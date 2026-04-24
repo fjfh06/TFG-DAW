@@ -2,6 +2,7 @@ import { useActionState, useEffect } from "react";
 import { useAuth } from "../../hooks/useAuth";
 import { useNavigate, useLocation } from "react-router-dom";
 import { Loader } from "../../components/common/Loader/Loader";
+import { useLoading } from "../../hooks/useLoading";
 import styles from "./Login.module.css";
 import logoClubShaolin from "../../assets/logoClubShaolin.png";
 
@@ -9,15 +10,16 @@ const Login = () => {
   const { login, user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const [isLoading, setIsLoading] = useLoading(false);
 
   const from = location.state?.from?.pathname || "/";
 
   // Si ya tiene session, redirigir
   useEffect(() => {
-    if (user) {
+    if (user && !isLoading) {
       navigate(from, { replace: true });
     }
-  }, [user, navigate, from]);
+  }, [user, navigate, from, isLoading]);
 
   const formAction = async (
     _prev: { error: string | null },
@@ -42,6 +44,10 @@ const Login = () => {
   const [state, handleSubmit, isPending] = useActionState(formAction, {
     error: null,
   });
+
+  useEffect(() => {
+    setIsLoading(isPending);
+  }, [isPending, setIsLoading]);
 
   return (
     <div className={styles.loginContainer}>
@@ -95,10 +101,10 @@ const Login = () => {
 
           <button
             type="submit"
-            disabled={isPending}
+            disabled={isLoading || isPending}
             className={`btn btn-primary ${styles.submitBtn}`}
           >
-            {isPending ? <Loader text="Iniciando sesión..." compact /> : "Entrar"}
+            {isLoading ? <Loader text="Iniciando sesión..." compact /> : "Entrar"}
           </button>
         </form>
       </div>

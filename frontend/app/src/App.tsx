@@ -1,5 +1,6 @@
 import { Routes, Route, Outlet } from 'react-router-dom';
 import { Toaster } from 'sonner';
+import ScrollToTop from './components/common/ScrollToTop';
 import { AuthProvider } from './context/AuthProvider';
 import { SeasonProvider } from './context/SeasonProvider';
 import ProtectedRoute from './components/ProtectedRoute';
@@ -15,20 +16,17 @@ import Attendance from './pages/Attendance/Attendance';
 import Licenses from './pages/Licenses/Licenses';
 import Events from './pages/Events/Events';
 import Settings from './pages/Settings/Settings';
-
-const NotFound = () => (
-  <div className="container mt-4 text-center">
-    <h2>404 - Página no encontrada</h2>
-    <p>La ruta a la que intentas acceder no existe.</p>
-  </div>
-);
-
-// Vistas temporales para probar el router
+import NotFound from './pages/NotFound/NotFound';
 
 function App() {
   return (
     <AuthProvider>
-      <Toaster position="top-right" richColors />
+      <ScrollToTop />
+      <Toaster 
+        position="top-right" 
+        richColors 
+        duration={2500}
+      />
       <Routes>
         <Route path="/login" element={<Login />} />
         
@@ -53,9 +51,10 @@ function App() {
             <Route path="/licencias" element={<Licenses />} />
             <Route path="/configuracion" element={<Settings />} />
           </Route>
-        </Route>
 
-        <Route path="*" element={<NotFound />} />
+          {/* 404 Route inside layout so the menu stays visible */}
+          <Route path="*" element={<NotFound />} />
+        </Route>
       </Routes>
     </AuthProvider>
   );

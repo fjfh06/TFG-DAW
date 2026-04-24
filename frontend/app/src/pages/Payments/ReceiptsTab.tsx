@@ -123,18 +123,37 @@ const ReceiptsTab = () => {
     }
   }, [form.tarifa_aplicada_id, form.id, tarifas]);
 
-  // Intentar pre-seleccionar la tarifa por defecto si el alumno cambia en form
-  // Nota: Esto requeriría que Alumno exponga una tarifa_mensual_id predeterminada o consultar su inscripción.
-  // Por el momento, cogeremos la tarifa base de toda la vida si solo hay 1 o no hay tarifa previa.
+  // Intentar pre-seleccionar la tarifa basada en el historial del alumno
   useEffect(() => {
-      if (form.alumno_id && form.id === 0 && !form.tarifa_aplicada_id && tarifas.length > 0) {
-          // auto fill primera tarifa activa por conveniencia 
-          const firstCurrentTarifa = tarifas.find(t => currentSeason && t.temporada_id === currentSeason.id) || tarifas[0];
-          if(firstCurrentTarifa) {
-             setForm(f => ({ ...f, tarifa_aplicada_id: firstCurrentTarifa.id.toString() }));
-          }
+    if (form.id !== 0 || !form.alumno_id) return;
+
+    const fetchLastPayment = async () => {
+      try {
+        const payments = await pagoAPI.getPagos(Number(form.alumno_id));
+        if (payments.length > 0) {
+          // Cogemos el más reciente (por ID descendente)
+          const last = [...payments].sort((a, b) => b.id - a.id)[0];
+          setForm(f => ({
+            ...f,
+            tarifa_aplicada_id: last.tarifa_aplicada_id?.toString() || "",
+            cantidad: last.cantidad.toString()
+          }));
+        } else if (tarifas.length > 0) {
+          // Si no hay historial, usar la primera tarifa de la temporada actual
+          const defaultTarifa = tarifas.find(t => currentSeason && t.temporada_id === currentSeason.id) || tarifas[0];
+          setForm(f => ({
+            ...f,
+            tarifa_aplicada_id: defaultTarifa.id.toString(),
+            cantidad: defaultTarifa.precio_base.toString()
+          }));
+        }
+      } catch (e) {
+        console.error("Error al obtener el último pago del alumno:", e);
       }
-  }, [form.alumno_id, form.id, form.tarifa_aplicada_id, tarifas, currentSeason]);
+    };
+    
+    fetchLastPayment();
+  }, [form.alumno_id, form.id, tarifas, currentSeason]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -197,7 +216,7 @@ const ReceiptsTab = () => {
         <div className="flex gap-2">
            {filtroParam === 'pendientes' && (
               <button className="btn btn-secondary bg-red-50 text-red-600 border-red-200" onClick={() => setSearchParams({})}>
-                ❌ Quitar Filtro Deudores
+                ❌ Quitar Filtro
               </button>
            )}
            <button className="btn btn-primary" onClick={() => handleOpenForm()}>

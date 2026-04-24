@@ -71,7 +71,9 @@ def create_licencia():
         ).first()
         
         if existing:
-            return jsonify({'error': 'El alumno ya tiene una licencia asignada para esta temporada'}), 400
+            if existing.estado_pago == 'pagado':
+                return jsonify({'error': 'El alumno ya ha pagado la licencia de esta temporada'}), 400
+            return jsonify({'error': 'El alumno ya tiene una licencia asignada (pendiente de pago) para esta temporada'}), 400
 
         new_licencia = LicenciaAlumno(
             alumno_id=data['alumno_id'],
