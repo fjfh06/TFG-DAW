@@ -51,12 +51,20 @@ def create_app():
     app.config['JWT_COOKIE_SAMESITE'] = 'Lax'
     app.config['JWT_COOKIE_CSRF_PROTECT'] = True
     app.config["JWT_SESSION_COOKIE"] = False
-    app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(hours=12)
+    app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(hours=14)
 
     # Extensions
     db.init_app(app)
     jwt.init_app(app)
     CORS(app, supports_credentials=True)
+
+    @jwt.unauthorized_loader
+    def custom_unauthorized_response(_err):
+        return jsonify({"msg": "Acceso no autorizado: No se ha iniciado sesión."}), 401
+
+    @jwt.expired_token_loader
+    def custom_expired_token_response(jwt_header, jwt_payload):
+        return jsonify({"msg": "Su sesión ha expirado. Por favor, inicie sesión nuevamente."}), 401
 
     # Register Blueprints
     app.register_blueprint(auth_bp, url_prefix='/api/auth')
