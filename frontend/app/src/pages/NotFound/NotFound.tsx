@@ -25,21 +25,22 @@ const NotFound = () => {
         position: 'absolute',
         top: 0, left: 0, right: 0, bottom: 0,
         backgroundColor: 'rgba(15, 23, 42, 0.75)', /* Slate-900 with opacity */
-        backdropFilter: 'blur(3px)',
+        backdropFilter: 'blur(1px)',
         zIndex: 1
       }}></div>
       
       <div style={{ position: 'relative', zIndex: 2, maxWidth: '600px', animation: 'fadeInUp 0.6s ease-out' }}>
         <h1 style={{ 
-          fontSize: 'clamp(6rem, 15vw, 10rem)', 
+          fontSize: 'clamp(3rem, 8vw, 6rem)',  
           fontWeight: 900, 
           margin: 0, 
           lineHeight: 1,
+          padding: '1rem',
           background: 'var(--gradient-shaolin)',
           WebkitBackgroundClip: 'text',
           WebkitTextFillColor: 'transparent',
           textShadow: '0px 10px 40px rgba(211, 47, 47, 0.4)'
-        }}>404</h1>
+        }}>Error 404</h1>
         
         <h2 style={{ 
           fontSize: 'clamp(1.5rem, 4vw, 2.5rem)', 
@@ -68,7 +69,7 @@ const NotFound = () => {
             boxShadow: '0 10px 25px -5px rgba(211, 47, 47, 0.4)'
           }}
         >
-          Volver al Templo (Inicio)
+          Volver a Inicio
         </Link>
       </div>
     </div>

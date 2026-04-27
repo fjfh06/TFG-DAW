@@ -9,6 +9,7 @@ import { Loader } from "../../components/common/Loader/Loader";
 import { useLoading } from "../../hooks/useLoading";
 import styles from "./Licenses.module.css";
 import { SearchableSelect } from "../../components/common/SearchableSelect/SearchableSelect";
+import { Edit3, Trash2 } from "lucide-react";
 
 const AssignedLicensesTab = () => {
   const { currentSeason, isLoadingSeasons } = useSeason();
@@ -288,9 +289,15 @@ const AssignedLicensesTab = () => {
                   <td className="text-gray-600 text-sm whitespace-nowrap">
                     {dMy(l.fecha_inicio_validez)} <br />a<br /> {dMy(l.fecha_fin_validez)}
                   </td>
-                  <td className="text-center">
-                    <button className={styles.actionBtn} onClick={() => handleOpenForm(l)}>Editar</button>
-                    <button className={styles.deleteBtn} onClick={() => handleDelete(l.id)}>Borrar</button>
+                  <td>
+                    <div className="flex justify-center gap-2">
+                      <button className={styles.actionBtn} onClick={() => handleOpenForm(l)} title="Editar">
+                        <Edit3 size={16} />
+                      </button>
+                      <button className={styles.deleteBtn} onClick={() => handleDelete(l.id)} title="Borrar">
+                        <Trash2 size={16} />
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}

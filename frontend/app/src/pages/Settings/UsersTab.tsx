@@ -7,6 +7,7 @@ import { useLoading } from "../../hooks/useLoading";
 import styles from "./Settings.module.css";
 import { useAuth } from "../../hooks/useAuth";
 import { formatRole } from "../../utils/formatters";
+import { Edit3, Trash2 } from "lucide-react";
 
 const UsersTab = () => {
   const { user: currentUser } = useAuth();
@@ -166,8 +167,8 @@ const UsersTab = () => {
       ) : filteredUsers.length === 0 ? (
         <div className="py-12 text-center text-gray-400 font-bold">No se encontraron usuarios.</div>
       ) : (
-        <div className="tableWrapper">
-          <table className="premiumTable">
+        <div className="tableWrapper" style={{ maxWidth: '500px' }}>
+          <table className="premiumTable" style={{ minWidth: 'auto' }}>
             <thead>
               <tr>
                 <th className="sticky-col">Username</th>
@@ -190,16 +191,19 @@ const UsersTab = () => {
                   </td>
                   <td>
                     <div className="flex justify-end gap-2">
-                      <button className="btn btn-secondary btn-sm" onClick={() => {
+                      <button className={styles.actionBtn} onClick={() => {
                           setFormData({ id: u.id, username: u.username, password: '', rol: u.rol });
                           setShowForm(true);
-                      }}>Editar</button>
+                      }} title="Editar">
+                        <Edit3 size={16} />
+                      </button>
                       <button 
-                        className="btn btn-danger btn-sm"
+                        className={styles.deleteBtn}
                         onClick={() => handleDelete(u.id)}
                         disabled={u.id === currentUser?.id}
+                        title="Borrar"
                       >
-                        Borrar
+                        <Trash2 size={16} />
                       </button>
                     </div>
                   </td>

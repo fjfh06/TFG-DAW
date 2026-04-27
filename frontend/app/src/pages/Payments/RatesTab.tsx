@@ -6,6 +6,7 @@ import { toast } from "sonner";
 import { Loader } from "../../components/common/Loader/Loader";
 import { useLoading } from "../../hooks/useLoading";
 import styles from "./Payments.module.css";
+import { Edit3, Trash2 } from "lucide-react";
 
 const RatesTab = () => {
   const { currentSeason, isLoadingSeasons } = useSeason();
@@ -152,9 +153,15 @@ const RatesTab = () => {
                 <tr key={t.id}>
                   <td>{t.nombre}</td>
                   <td>{Number(t.precio_base).toFixed(2)} €</td>
-                  <td className="text-center">
-                    <button className={styles.actionBtn} onClick={() => handleOpenForm(t)}>Editar</button>
-                    <button className={styles.deleteBtn} onClick={() => handleDelete(t.id)}>Borrar</button>
+                  <td>
+                    <div className="flex justify-center gap-2">
+                      <button className={styles.actionBtn} onClick={() => handleOpenForm(t)} title="Editar">
+                        <Edit3 size={16} />
+                      </button>
+                      <button className={styles.deleteBtn} onClick={() => handleDelete(t.id)} title="Borrar">
+                        <Trash2 size={16} />
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}

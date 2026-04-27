@@ -124,7 +124,7 @@ const StudentProfile = () => {
             <button className="btn btn-primary" onClick={() => navigate(`/alumnos/editar/${alumno.id}`)}>
               <div className="flex items-center gap-2">
                 <Edit3 size={18} />
-                <span>Editar Ficha</span>
+                <span>Editar</span>
               </div>
             </button>
         </div>
@@ -152,7 +152,7 @@ const StudentProfile = () => {
             className={`${styles.tabBtn} ${activeTab === 'info' ? styles.activeTab : ''}`}
             onClick={() => setActiveTab('info')}
           >
-            Datos Generales
+            Información
           </button>
           <button 
             className={`${styles.tabBtn} ${activeTab === 'asistencia' ? styles.activeTab : ''}`}
@@ -164,7 +164,7 @@ const StudentProfile = () => {
             className={`${styles.tabBtn} ${activeTab === 'economia' ? styles.activeTab : ''}`}
             onClick={() => setActiveTab('economia')}
           >
-            Economía y Licencias
+            Pagos
           </button>
           <button 
             className={`${styles.tabBtn} ${activeTab === 'eventos' ? styles.activeTab : ''}`}
@@ -205,29 +205,29 @@ const StudentProfile = () => {
           {/* TAB: ASISTENCIA */}
           {activeTab === 'asistencia' && (
             <div>
-              <div className="flex flex-wrap gap-4 mb-6">
-                <div className="flex items-center gap-2">
+              <div className="grid grid-cols-2 gap-4 mb-6">
+                <div className="formGroup">
                   <label className="font-medium text-sm text-gray-700">Mes:</label>
-                  <select className="input" value={filterMes} onChange={e => setFilterMes(Number(e.target.value))} style={{ width: 140 }}>
+                  <select className="inputField" value={filterMes} onChange={e => setFilterMes(Number(e.target.value))}>
                     {Array.from({length: 12}, (_, i) => i + 1).map(m => (
                       <option key={m} value={m}>{new Date(2000, m-1, 1).toLocaleString('es', { month: 'long' })}</option>
                     ))}
                   </select>
                 </div>
-                <div className="flex items-center gap-2">
+                <div className="formGroup">
                   <label className="font-medium text-sm text-gray-700">Año:</label>
-                  <input type="number" className="input" value={filterAnio} onChange={e => setFilterAnio(Number(e.target.value))} style={{ width: 100 }} />
+                  <input type="number" className="inputField" value={filterAnio} onChange={e => setFilterAnio(Number(e.target.value))} />
                 </div>
               </div>
 
-              <div className="mb-6 p-5 bg-blue-50 rounded-xl border border-blue-100 flex justify-between items-center shadow-sm">
+              <div className="mb-6 p-5 bg-blue-50 rounded-xl border border-blue-100 flex flex-col sm:flex-row justify-between items-center gap-4 shadow-sm text-center sm:text-left">
                   <div>
                       <h4 className="text-blue-900 font-bold mb-1 text-lg">Resumen Mensual</h4>
                       <p className="text-blue-700 text-sm">
-                        Asistencias registradas en este periodo
+                        Asistencias registradas
                       </p>
                   </div>
-                  <div className="text-4xl font-black text-blue-700 bg-white px-4 py-2 rounded-lg shadow-sm">
+                  <div className="text-4xl font-black text-blue-700 bg-white px-4 py-2 rounded-lg shadow-sm w-full sm:w-auto text-center">
                       {asistenciasMes.length} <span className="text-lg font-bold text-blue-400">/ {new Date(filterAnio, filterMes, 0).getDate()}</span>
                   </div>
               </div>
@@ -253,11 +253,11 @@ const StudentProfile = () => {
                     {/* Regular Attendance */}
                     {asistencias.some(a => a.fecha.startsWith(selectedDate)) ? (
                       <div className="flex items-center gap-2 text-emerald-700 bg-emerald-50 p-2 rounded-lg text-sm font-medium">
-                        <span className="text-xl">✓</span> Asistió a clase regular
+                        <span className="text-xl">✓</span> Asistió a clase
                       </div>
                     ) : (
                       <div className="flex items-center gap-2 text-gray-400 bg-gray-50 p-2 rounded-lg text-sm">
-                        <span>○ Sin registro de clase regular</span>
+                        <span>No asistió a clase</span>
                       </div>
                     )}
 
@@ -485,8 +485,8 @@ const StudentProfile = () => {
                               {p.resultado?.puesto ? (
                                 <div className="flex items-center gap-1">
                                   {showsTrophy && <Trophy size={16} className="text-amber-500" />}
-                                  <span className={showsTrophy ? "text-amber-700" : "text-gray-700"}>
-                                    {p.resultado.puesto}
+                                  <span className={showsTrophy ? "text-amber-700" : "text-gray-700"} style={{ padding: "0.25rem" }}>
+                                     {p.resultado.puesto}
                                   </span>
                                 </div>
                               ) : (

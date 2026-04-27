@@ -18,6 +18,17 @@ def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in allowed
 
+def parse_int_or_none(value):
+    if not value:
+        return None
+    val_str = str(value).strip()
+    if val_str in ['', 'null', 'undefined', 'None']:
+        return None
+    try:
+        return int(val_str)
+    except ValueError:
+        return None
+
 @alumno_bp.route('/foto/<filename>', methods=['GET'])
 @jwt_required()
 def get_alumno_foto(filename):
@@ -121,13 +132,13 @@ def create_alumno():
         new_alumno = Alumno(
             nombre=data['nombre'],
             apellidos=data['apellidos'],
-            dni=data.get('dni'),
-            fecha_nacimiento=data.get('fecha_nacimiento'),
-            telefono=data.get('telefono'),
-            direccion=data.get('direccion'),
-            grado_actual_id=data.get('grado_actual_id'),
+            dni=data.get('dni') if data.get('dni') != '' else None,
+            fecha_nacimiento=data.get('fecha_nacimiento') if data.get('fecha_nacimiento') != '' else None,
+            telefono=data.get('telefono') if data.get('telefono') != '' else None,
+            direccion=data.get('direccion') if data.get('direccion') != '' else None,
+            grado_actual_id=parse_int_or_none(data.get('grado_actual_id')),
             activo=data.get('activo', 'true').lower() == 'true',
-            user_id=data.get('user_id')
+            user_id=parse_int_or_none(data.get('user_id'))
         )
         
         db.session.add(new_alumno)
@@ -175,14 +186,14 @@ def update_alumno(id):
         if 'fecha_nacimiento' in data: alumno.fecha_nacimiento = data['fecha_nacimiento'] if data['fecha_nacimiento'] != '' else None
         if 'telefono' in data: alumno.telefono = data['telefono'] if data['telefono'] != '' else None
         if 'direccion' in data: alumno.direccion = data['direccion'] if data['direccion'] != '' else None
-        if 'grado_actual_id' in data: alumno.grado_actual_id = data['grado_actual_id'] if data['grado_actual_id'] != '' else None
+        if 'grado_actual_id' in data: alumno.grado_actual_id = parse_int_or_none(data.get('grado_actual_id'))
         if 'activo' in data: 
             val = data['activo']
             if isinstance(val, str):
                 alumno.activo = val.lower() == 'true'
             else:
                 alumno.activo = val
-        if 'user_id' in data: alumno.user_id = data['user_id'] if data['user_id'] != '' else None
+        if 'user_id' in data: alumno.user_id = parse_int_or_none(data.get('user_id'))
 
         if 'foto' in request.files:
             file = request.files['foto']

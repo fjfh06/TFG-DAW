@@ -10,6 +10,10 @@ export default defineConfig({
     allowedHosts: true,
     watch: {
       usePolling: true
+    },
+    hmr: {
+      protocol: 'wss',
+      clientPort: 443
     }
   }
 })

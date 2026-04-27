@@ -116,22 +116,7 @@ const StudentForm = () => {
     setIsSubmitting(true);
     const formData = new FormData(e.currentTarget);
 
-    // Fix empty fields crashes (backend likes None/NULL, not empty strings)
-    if (!formValues.fecha_nacimiento) {
-      formData.delete("fecha_nacimiento");
-    }
-    
-    if (!formValues.user_id) {
-       formData.delete("user_id");
-    }
-
-    if (!formValues.grado_actual_id) {
-       formData.delete("grado_actual_id");
-    }
-
-    if (!formData.get("dni")) {
-       formData.delete("dni");
-    }
+    // Enviamos siempre los campos vacíos como "" para que el backend pueda anularlos si es necesario
     
     // Convert boolean to string for FormData (backend handles strictly "true"/"false")
     formData.set("activo", formValues.activo ? "true" : "false");

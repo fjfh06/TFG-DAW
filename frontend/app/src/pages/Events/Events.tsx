@@ -138,7 +138,7 @@ const Events = () => {
       <div className={styles.header}>
         <div>
            <h2>Eventos y Competiciones</h2>
-           <p className="text-gray-600">Calendario, competiciones, exámenes y sus inscripciones.</p>
+           <p className="text-gray-600">Exhibiciones, competiciones, exámenes, etc...</p>
         </div>
         <button className="btn btn-primary" onClick={() => handleOpenForm()}>
           + Nuevo Evento

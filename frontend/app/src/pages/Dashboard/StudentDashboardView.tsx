@@ -264,7 +264,7 @@ export const StudentDashboardView = () => {
                        <div>
                           <p className={styles.idBottomLabel}>Estado</p>
                           <p className={licencia.estado_pago === 'pagado' ? styles.textSuccess : styles.textDanger}>
-                             {licencia.estado_pago}
+                             {licencia.estado_pago.charAt(0).toUpperCase() + licencia.estado_pago.slice(1)}
                           </p>
                        </div>
                     </div>

@@ -287,6 +287,36 @@ const EventDetails = ({ evento, onBack }: Props) => {
            </div>
         )}
 
+        {resultFormOpen && (
+           <div className="formGlass mb-12 animate-in slide-in-from-top-4 duration-300 border-amber-200">
+              <h3 className="text-2xl font-black mb-8 flex items-center gap-3">
+                 <Trophy className="text-amber-500" /> Resultados: {resultForm.student_name}
+              </h3>
+              <form onSubmit={handleResultSubmit}>
+                 <div className="formRow mb-6">
+                    <div className="formGroup">
+                       <label>Puesto / Medalla</label>
+                       <input className="inputField" value={resultForm.puesto} onChange={e => setResultForm({...resultForm, puesto: e.target.value})} placeholder="Ej: Oro, 1er Puesto, 3º..." />
+                    </div>
+                    <div className="formGroup">
+                       <label>Categoría Final</label>
+                       <input className="inputField" value={resultForm.categoria_final} onChange={e => setResultForm({...resultForm, categoria_final: e.target.value})} />
+                    </div>
+                 </div>
+
+                 <div className="formGroup mb-8">
+                    <label>Observaciones</label>
+                    <textarea className="inputField min-h-[100px]" value={resultForm.observaciones} onChange={e => setResultForm({...resultForm, observaciones: e.target.value})} />
+                 </div>
+
+                 <div className="flex justify-end gap-3 pt-6 border-t border-gray-100">
+                    <button type="button" className="btn btn-secondary" onClick={() => setResultFormOpen(false)}>Cancelar</button>
+                    <button type="submit" className="btn btn-primary" style={{ backgroundColor: 'var(--color-amber-600)', borderColor: 'var(--color-amber-600)' }}>Guardar Resultado</button>
+                 </div>
+              </form>
+           </div>
+        )}
+
         <div className="tableWrapper">
           <table className="premiumTable">
             <thead>
@@ -351,38 +381,6 @@ const EventDetails = ({ evento, onBack }: Props) => {
         </div>
       </div>
 
-      {/* RESULTS MODAL - Keep this as modal as it is specific and less frequent */}
-      {resultFormOpen && (
-         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-            <div className="formGlass w-full max-w-2xl animate-in fade-in zoom-in-95 duration-200 border-amber-200">
-               <h3 className="text-2xl font-black mb-8 flex items-center gap-3">
-                  <Trophy className="text-amber-500" /> Resultados: {resultForm.student_name}
-               </h3>
-               <form onSubmit={handleResultSubmit}>
-                  <div className="formRow mb-6">
-                     <div className="formGroup">
-                        <label>Puesto / Medalla</label>
-                        <input className="inputField" value={resultForm.puesto} onChange={e => setResultForm({...resultForm, puesto: e.target.value})} placeholder="Ej: Oro, 1er Puesto, 3º..." />
-                     </div>
-                     <div className="formGroup">
-                        <label>Categoría Final</label>
-                        <input className="inputField" value={resultForm.categoria_final} onChange={e => setResultForm({...resultForm, categoria_final: e.target.value})} />
-                     </div>
-                  </div>
-
-                  <div className="formGroup mb-8">
-                     <label>Observaciones</label>
-                     <textarea className="inputField min-h-[100px]" value={resultForm.observaciones} onChange={e => setResultForm({...resultForm, observaciones: e.target.value})} />
-                  </div>
-
-                  <div className="flex justify-end gap-3 pt-6 border-t border-gray-100">
-                     <button type="button" className="btn btn-secondary" onClick={() => setResultFormOpen(false)}>Cancelar</button>
-                     <button type="submit" className="btn btn-primary" style={{ backgroundColor: 'var(--color-amber-600)', borderColor: 'var(--color-amber-600)' }}>Guardar Resultado</button>
-                  </div>
-               </form>
-            </div>
-         </div>
-      )}
     </div>
   );
 };

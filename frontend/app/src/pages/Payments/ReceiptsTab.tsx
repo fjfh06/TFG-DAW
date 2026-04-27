@@ -9,6 +9,7 @@ import { useLoading } from "../../hooks/useLoading";
 import styles from "./Payments.module.css";
 import { useSeason } from "../../hooks/useSeason";
 import { SearchableSelect } from "../../components/common/SearchableSelect/SearchableSelect";
+import { Edit3, Trash2 } from "lucide-react";
 
 const ReceiptsTab = () => {
   const { currentSeason } = useSeason();
@@ -395,9 +396,15 @@ const ReceiptsTab = () => {
                   <td className="font-medium">{Number(p.cantidad).toFixed(2)} €</td>
                   <td className="text-gray-600 text-sm">{p.fecha_pago ? new Date(p.fecha_pago).toLocaleDateString() : '-'}</td>
                   <td className="text-gray-500 text-sm">{p.observaciones || '-'}</td>
-                  <td className="text-center">
-                    <button className={styles.actionBtn} onClick={() => handleOpenForm(p)}>Editar</button>
-                    <button className={styles.deleteBtn} onClick={() => handleDelete(p.id)}>Borrar</button>
+                  <td>
+                    <div className="flex justify-center gap-2">
+                      <button className={styles.actionBtn} onClick={() => handleOpenForm(p)} title="Editar">
+                        <Edit3 size={16} />
+                      </button>
+                      <button className={styles.deleteBtn} onClick={() => handleDelete(p.id)} title="Borrar">
+                        <Trash2 size={16} />
+                      </button>
+                    </div>
                   </td>
                 </tr>
               ))}

@@ -7,6 +7,7 @@ import { Loader } from "../../components/common/Loader/Loader";
 import { useLoading } from "../../hooks/useLoading";
 import UsersTab from "./UsersTab";
 import styles from "./Settings.module.css";
+import { Edit3, Trash2 } from "lucide-react";
 
 const Settings = () => {
   const [temporadas, setTemporadas] = useState<Temporada[]>([]);
@@ -217,11 +218,15 @@ const Settings = () => {
                   </td>
                   <td>
                     <div className="flex justify-end gap-2">
-                        <button className="btn btn-secondary btn-sm" onClick={() => {
+                        <button className={styles.actionBtn} onClick={() => {
                             setTempFormData({ id: t.id, nombre: t.nombre, fecha_inicio: t.fecha_inicio.split('T')[0], fecha_fin: t.fecha_fin? t.fecha_fin.split('T')[0] : '', activa: t.activa });
                             setShowTemporadaForm(true);
-                        }}>Editar</button>
-                        <button className="btn btn-danger btn-sm" onClick={() => handleDeleteTemporada(t.id)}>Borrar</button>
+                        }} title="Editar">
+                          <Edit3 size={16} />
+                        </button>
+                        <button className={styles.deleteBtn} onClick={() => handleDeleteTemporada(t.id)} title="Borrar">
+                          <Trash2 size={16} />
+                        </button>
                     </div>
                   </td>
                 </tr>
@@ -263,8 +268,8 @@ const Settings = () => {
           </div>
         )}
 
-        <div className="tableWrapper">
-          <table className="premiumTable">
+        <div className="tableWrapper" style={{ maxWidth: '500px' }}>
+          <table className="premiumTable" style={{ minWidth: 'auto' }}>
             <thead>
               <tr>
                 <th className="sticky-col">Orden</th>
@@ -279,11 +284,15 @@ const Settings = () => {
                   <td className="font-bold">{c.nombre}</td>
                   <td>
                     <div className="flex justify-end gap-2">
-                        <button className="btn btn-secondary btn-sm" onClick={() => {
+                        <button className={styles.actionBtn} onClick={() => {
                             setCinturonFormData({ id: c.id, nombre: c.nombre, orden_jerarquia: c.orden_jerarquia });
                             setShowCinturonForm(true);
-                        }}>Editar</button>
-                        <button className="btn btn-danger btn-sm" onClick={() => handleDeleteCinturon(c.id)}>Borrar</button>
+                        }} title="Editar">
+                          <Edit3 size={16} />
+                        </button>
+                        <button className={styles.deleteBtn} onClick={() => handleDeleteCinturon(c.id)} title="Borrar">
+                          <Trash2 size={16} />
+                        </button>
                     </div>
                   </td>
                 </tr>

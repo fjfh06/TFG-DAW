@@ -52,16 +52,19 @@ def logout():
     return resp, 200
 
 @auth_bp.route('/me', methods=['GET'])
-@jwt_required()
+@jwt_required(optional=True)
 def me():
     current_user_id = get_jwt_identity()
+    if not current_user_id:
+        return '', 204
+
     if isinstance(current_user_id, str) and not current_user_id.isdigit():
         user = User.query.filter_by(username=current_user_id).first()
     else:
         user = User.query.get(current_user_id)
     
     if not user:
-        return jsonify({"msg": "User not found"}), 404
+        return '', 204
         
     nombre = ""
     apellidos = ""
