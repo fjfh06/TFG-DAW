@@ -8,14 +8,14 @@
 
 ---
 
-## ✨ Características Principales
+## Características Principales
 
-*   **👥 Gestión de Alumnos:** Registro completo de expedientes, datos personales e historial.
-*   **💳 Control de Pagos y Cuotas:** Automatización y seguimiento de mensualidades y licencias.
-*   **📅 Gestión de Eventos:** Organización e inscripcion de los alumnos en exámenes, concentraciones y competiciones.
-*   **📜 Licencias:** Gestión de estados de pago de las licencias.
-*   **🔐 Seguridad:** Autenticación basada en JWT (JSON Web Tokens) y control de acceso por roles (Administrador, Ayudante y Alumno).
-*   **📱 Diseño Responsivo:** Interfaz optimizada para su uso tanto en ordenadores como en dispositivos móviles y tablets.
+*   **Gestión de Alumnos:** Registro completo de expedientes, datos personales e historial.
+*   **Control de Pagos y Cuotas:** Automatización y seguimiento de mensualidades y licencias.
+*   **Gestión de Eventos:** Organización e inscripcion de los alumnos en exámenes, concentraciones y competiciones.
+*   **Licencias:** Gestión de estados de pago de las licencias.
+*   **Seguridad:** Autenticación basada en JWT (JSON Web Tokens) y control de acceso por roles (Administrador, Ayudante y Alumno).
+*   **Diseño Responsivo:** Interfaz optimizada para su uso tanto en ordenadores como en dispositivos móviles y tablets.
 
 ---
 
