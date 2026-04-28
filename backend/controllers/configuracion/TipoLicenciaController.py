@@ -13,7 +13,7 @@ def get_tipos_licencia():
     if temporada_id:
         query = query.filter_by(temporada_id=temporada_id)
         
-    tipos = query.all()
+    tipos = query.order_by(TipoLicencia.nombre).all()
     return jsonify([{
         'id': t.id, 'nombre': t.nombre, 'precio': str(t.precio), 'temporada_id': t.temporada_id
     } for t in tipos]), 200

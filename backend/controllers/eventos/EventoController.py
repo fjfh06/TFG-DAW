@@ -23,10 +23,24 @@ def parse_datetime(date_str):
 @jwt_required()
 def get_eventos():
     temporada_id = request.args.get('temporada_id')
+    query = Evento.query
     if temporada_id:
-        eventos = Evento.query.filter_by(temporada_id=temporada_id).all()
-    else:
-        eventos = Evento.query.all()
+        query = query.filter_by(temporada_id=temporada_id)
+        
+    all_eventos = query.all()
+    
+    # Sort logic: 
+    # 1. Future events (closest first)
+    # 2. Past events (most recent first)
+    now = datetime.now()
+    
+    proximos = [e for e in all_eventos if e.fecha_inicio >= now]
+    pasados = [e for e in all_eventos if e.fecha_inicio < now]
+    
+    proximos.sort(key=lambda x: x.fecha_inicio)
+    pasados.sort(key=lambda x: x.fecha_inicio, reverse=True)
+    
+    eventos = proximos + pasados
         
     return jsonify([{
         'id': e.id, 'nombre': e.nombre, 'tipo': e.tipo,

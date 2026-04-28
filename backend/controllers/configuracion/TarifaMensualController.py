@@ -13,7 +13,7 @@ def get_tarifas():
     if temporada_id:
         query = query.filter_by(temporada_id=temporada_id)
         
-    tarifas = query.all()
+    tarifas = query.order_by(TarifaMensual.nombre).all()
     return jsonify([{
         'id': t.id, 'nombre': t.nombre, 'precio_base': str(t.precio_base),
         'temporada_id': t.temporada_id

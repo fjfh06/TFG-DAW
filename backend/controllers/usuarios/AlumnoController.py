@@ -74,9 +74,9 @@ def get_alumnos():
         
     # Si es admin o ayudante, ve todos. Si no, solo el suyo.
     if user.roles in ['admin', 'ayudante']:
-        alumnos = Alumno.query.all()
+        alumnos = Alumno.query.order_by(Alumno.nombre, Alumno.apellidos).all()
     else:
-        alumnos = Alumno.query.filter_by(user_id=current_user_id).all()
+        alumnos = Alumno.query.filter_by(user_id=current_user_id).order_by(Alumno.nombre, Alumno.apellidos).all()
     
     result = []
     for a in alumnos:

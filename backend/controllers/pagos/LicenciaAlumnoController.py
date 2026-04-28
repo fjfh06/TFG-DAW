@@ -40,7 +40,7 @@ def get_licencias():
     if temporada_id:
         query = query.join(TipoLicencia).filter(TipoLicencia.temporada_id == temporada_id)
         
-    licencias = query.all()
+    licencias = query.join(Alumno).order_by(Alumno.nombre, Alumno.apellidos).all()
         
     return jsonify([{
         'id': l.id,

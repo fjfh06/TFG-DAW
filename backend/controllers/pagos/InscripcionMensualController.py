@@ -31,7 +31,7 @@ def get_inscripciones():
     if temporada_id:
         query = query.filter_by(temporada_id=temporada_id)
         
-    inscripciones = query.all()
+    inscripciones = query.join(Alumno).order_by(Alumno.nombre, Alumno.apellidos).all()
     
     return jsonify([{
         'id': i.id, 'alumno_id': i.alumno_id, 

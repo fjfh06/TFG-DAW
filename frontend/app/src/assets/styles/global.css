@@ -81,8 +81,14 @@ img {
 .justify-between {
   justify-content: space-between;
 }
+.gap-1 {
+  gap: var(--spacing-xs);
+}
 .gap-2 {
   gap: var(--spacing-sm);
+}
+.gap-3 {
+  gap: 0.75rem;
 }
 .gap-4 {
   gap: var(--spacing-md);

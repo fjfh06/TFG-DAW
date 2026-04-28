@@ -465,7 +465,7 @@ const StudentProfile = () => {
                         return (
                           <tr key={p.id}>
                             <td>
-                              <div className="font-bold text-blue-900">{evt?.nombre || `Evento #${p.evento_id}`}</div>
+                              <div className="font-bold text-blue-900">{evt?.nombre || `Evento borrado`}</div>
                               <div className="text-xs text-gray-400">
                                 {evt?.fecha_inicio ? new Date(evt.fecha_inicio).toLocaleDateString() : "-"}
                               </div>

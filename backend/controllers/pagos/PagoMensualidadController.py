@@ -46,7 +46,7 @@ def get_pagos():
     if temporada_id:
         query = query.join(TarifaMensual).filter(TarifaMensual.temporada_id == temporada_id)
         
-    pagos = query.all()
+    pagos = query.join(Alumno).order_by(Alumno.nombre, Alumno.apellidos).all()
     return jsonify([{
         'id': p.id, 'alumno_id': p.alumno_id, 'mes': p.mes, 'anio': p.anio,
         'cantidad': str(p.cantidad), 'estado': p.estado,
