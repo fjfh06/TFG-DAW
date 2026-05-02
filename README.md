@@ -118,4 +118,4 @@ Para levantar el entorno completo (Backend, Frontend, Base de Datos y Nginx) de 
 *   **Francisco Javier Fdez Hdez** - *Desarrollo Integral* - [GitHub](https://github.com/fjfh06)
 
 ---
-> **Nota Académica:** Este proyecto ha sido desarrollado como proyecto final para el Grado Superior en Desarrollo de Aplicaciones Web. Para una explicación detallada del modelo de datos, roles de usuario y casos de uso, consulte el archivo **Documentacion_Proyecto.pdf** incluido en la entrega del TFG.
+> **Nota:** Este proyecto ha sido desarrollado como proyecto final para el Grado Superior en Desarrollo de Aplicaciones Web. Para una explicación detallada del modelo de datos, roles de usuario y casos de uso, consulte el archivo **Documentacion.pdf** incluido en la entrega del TFG.
