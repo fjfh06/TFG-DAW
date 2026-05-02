@@ -59,12 +59,6 @@ export interface TarifaMensual {
   temporada_id: number;
 }
 
-export interface InscripcionMensual {
-  id: number;
-  alumno_id: number;
-  tarifa_mensual_id: number;
-  temporada_id: number;
-}
 
 export type EstadoPago = 'pagado' | 'pendiente' | 'parcial';
 export type EstadoPagoParticipacion = 'pagado' | 'pendiente' | 'no_aplica';

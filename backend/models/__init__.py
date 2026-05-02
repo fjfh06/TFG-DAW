@@ -5,7 +5,6 @@ from .configuracion.Temporada import Temporada
 from .configuracion.TarifaMensual import TarifaMensual
 from .configuracion.TipoLicencia import TipoLicencia
 from .pagos.LicenciaAlumno import LicenciaAlumno
-from .pagos.InscripcionMensual import InscripcionMensual
 from .pagos.PagoMensualidad import PagoMensualidad
 from .eventos.Evento import Evento
 from .eventos.Participacion import Participacion

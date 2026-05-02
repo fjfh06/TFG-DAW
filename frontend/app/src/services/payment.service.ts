@@ -1,4 +1,4 @@
-import type { TarifaMensual, InscripcionMensual, PagoMensualidad } from "../types";
+import type { TarifaMensual, PagoMensualidad } from "../types";
 
 import { API_URL } from "../config";
 
@@ -32,37 +32,7 @@ export const tarifaAPI = {
   }
 };
 
-export const inscripcionAPI = {
-  async getInscripciones(alumnoId?: number, temporadaId?: number): Promise<InscripcionMensual[]> {
-    const params = new URLSearchParams();
-    if (alumnoId) params.append("alumno_id", alumnoId.toString());
-    if (temporadaId) params.append("temporada_id", temporadaId.toString());
-    
-    const url = `${API_URL}/pagos/inscripciones/?${params.toString()}`;
-    const response = await fetch(url, { headers: getHeaders(), credentials: "include" });
-    if (!response.ok) throw new Error("Error al obtener inscripciones");
-    return response.json();
-  },
-  async createInscripcion(data: Omit<InscripcionMensual, 'id'>): Promise<{id: number}> {
-    const response = await fetch(`${API_URL}/pagos/inscripciones/`, {
-      method: "POST", headers: getHeaders(), body: JSON.stringify(data), credentials: "include"
-    });
-    if (!response.ok) throw new Error("Error al crear inscripción");
-    return response.json();
-  },
-  async updateInscripcion(id: number, data: Partial<InscripcionMensual>): Promise<void> {
-    const response = await fetch(`${API_URL}/pagos/inscripciones/${id}`, {
-      method: "PUT", headers: getHeaders(), body: JSON.stringify(data), credentials: "include"
-    });
-    if (!response.ok) throw new Error("Error al actualizar inscripción");
-  },
-  async deleteInscripcion(id: number): Promise<void> {
-    const response = await fetch(`${API_URL}/pagos/inscripciones/${id}`, {
-      method: "DELETE", headers: getHeaders(), credentials: "include"
-    });
-    if (!response.ok) throw new Error("Error al eliminar inscripción");
-  }
-};
+
 
 export const pagoAPI = {
   async getPagos(alumnoId?: number, mes?: number, anio?: number): Promise<PagoMensualidad[]> {

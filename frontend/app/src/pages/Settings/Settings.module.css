@@ -31,7 +31,7 @@
 
 .tabs {
   display: flex;
-  gap: 1.5rem;
+  gap: 0.5rem;
   border-bottom: 2px solid #f1f5f9;
   overflow-x: auto;
   padding-bottom: 2px;
@@ -186,6 +186,15 @@
     padding: 1.25rem;
     text-align: center;
     align-items: center;
+  }
+  .tabs {
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+  }
+  .tabBtn {
+    font-size: 0.75rem;
+    padding: 0.25rem 0.5rem;
   }
 }
 

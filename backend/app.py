@@ -15,7 +15,6 @@ from controllers.configuracion.TemporadaController import temporada_bp
 from controllers.configuracion.TarifaMensualController import tarifa_bp
 from controllers.configuracion.TipoLicenciaController import tipolicencia_bp
 from controllers.pagos.LicenciaAlumnoController import licencia_alumno_bp
-from controllers.pagos.InscripcionMensualController import inscripcion_bp
 from controllers.pagos.PagoMensualidadController import pago_bp
 from controllers.eventos.EventoController import evento_bp
 from controllers.eventos.ParticipacionController import participacion_bp
@@ -75,7 +74,6 @@ def create_app():
     app.register_blueprint(tarifa_bp, url_prefix='/api/config/tarifas')
     app.register_blueprint(tipolicencia_bp, url_prefix='/api/config/tipos-licencia')
     app.register_blueprint(licencia_alumno_bp, url_prefix='/api/licencias')
-    app.register_blueprint(inscripcion_bp, url_prefix='/api/pagos/inscripciones')
     app.register_blueprint(pago_bp, url_prefix='/api/pagos/mensualidades')
     app.register_blueprint(evento_bp, url_prefix='/api/eventos')
     app.register_blueprint(participacion_bp, url_prefix='/api/eventos/participaciones')
