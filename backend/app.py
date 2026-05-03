@@ -59,11 +59,11 @@ def create_app():
 
     @jwt.unauthorized_loader
     def custom_unauthorized_response(_err):
-        return jsonify({"msg": "Acceso no autorizado: No se ha iniciado sesión."}), 401
+        return jsonify({"msg": "Acceso no autorizado: No se ha iniciado sesion."}), 401
 
     @jwt.expired_token_loader
     def custom_expired_token_response(jwt_header, jwt_payload):
-        return jsonify({"msg": "Su sesión ha expirado. Por favor, inicie sesión nuevamente."}), 401
+        return jsonify({"msg": "Su sesion ha expirado. Por favor, inicie sesion nuevamente."}), 401
 
     # Register Blueprints
     app.register_blueprint(auth_bp, url_prefix='/api/auth')
