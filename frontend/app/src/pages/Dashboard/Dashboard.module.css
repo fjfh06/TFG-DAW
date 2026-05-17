@@ -188,3 +188,62 @@
     grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   }
 }
+
+/* Responsive Two-column Admin Dashboard Layout (License Card in Top Right, non-sticky) */
+.adminMainLayout {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* Mobile order: Alertas (1) -> License (2) -> Resumen (3) -> Shortcuts (4) */
+.alertsSection {
+  order: 1;
+}
+
+.licenseSection {
+  order: 2;
+}
+
+.summarySection {
+  order: 3;
+}
+
+.shortcutsSection {
+  order: 4;
+}
+
+@media (min-width: 1280px) {
+  .adminMainLayout {
+    display: grid;
+    grid-template-columns: 2.1fr 1fr;
+    gap: 2rem;
+  }
+
+  .alertsSection {
+    grid-column: 1;
+    grid-row: 1;
+    order: unset;
+  }
+
+  .summarySection {
+    grid-column: 1;
+    grid-row: 2;
+    order: unset;
+  }
+
+  .shortcutsSection {
+    grid-column: 1;
+    grid-row: 3;
+    order: unset;
+  }
+
+  .licenseSection {
+    grid-column: 2;
+    grid-row: 1 / span 3;
+    align-self: flex-start;
+    order: unset;
+    width: 100%;
+  }
+}
+

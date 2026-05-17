@@ -9,7 +9,7 @@ import { Loader } from "../../components/common/Loader/Loader";
 import { useLoading } from "../../hooks/useLoading";
 import styles from "./Licenses.module.css";
 import { SearchableSelect } from "../../components/common/SearchableSelect/SearchableSelect";
-import { Edit3, Trash2 } from "lucide-react";
+import { Edit3, Trash2, XCircle, ShieldAlert } from "lucide-react";
 
 const AssignedLicensesTab = () => {
   const { currentSeason, isLoadingSeasons } = useSeason();
@@ -155,8 +155,8 @@ const AssignedLicensesTab = () => {
         <h3>Licencias de Alumnos</h3>
         <div className="flex gap-2">
            {filtroParam === 'sin_licencia' && (
-              <button className="btn btn-secondary bg-amber-50 text-amber-600 border-amber-200" onClick={() => setSearchParams({})}>
-                ❌ Quitar Filtro
+              <button className="btn btn-secondary bg-amber-50 text-amber-600 border-amber-200 flex items-center gap-2" onClick={() => setSearchParams({})}>
+                <XCircle size={16} /> Quitar Filtro
               </button>
            )}
            <button className="btn btn-primary" onClick={() => handleOpenForm()}>
@@ -222,7 +222,7 @@ const AssignedLicensesTab = () => {
       ) : filtroParam === 'sin_licencia' ? (
         <div className={styles.tableContainer}>
           <div className="bg-amber-50 p-4 border-b border-amber-100 flex items-center gap-3">
-             <span className="text-2xl">🛡️</span>
+             <span className="text-2xl flex items-center"><ShieldAlert size={28} className="text-amber-600" /></span>
              <div>
                <h4 className="text-amber-800 font-bold mb-0">Alumnos Activos Sin Licencia Federativa</h4>
                <p className="text-sm text-amber-600 mb-0">Estos alumnos no tienen ninguna licencia vinculada en la temporada actual.</p>

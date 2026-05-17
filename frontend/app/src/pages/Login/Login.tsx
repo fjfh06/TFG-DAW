@@ -21,6 +21,15 @@ const Login = () => {
     }
   }, [user, navigate, from, isLoading]);
 
+  // Lock body scroll to prevent mobile bounce/scroll issues
+  useEffect(() => {
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    return () => {
+      document.body.style.overflow = originalOverflow || 'unset';
+    };
+  }, []);
+
   const formAction = async (
     _prev: { error: string | null },
     formData: FormData
@@ -107,6 +116,27 @@ const Login = () => {
             {isLoading ? <Loader text="Iniciando sesión..." compact /> : "Entrar"}
           </button>
         </form>
+      </div>
+
+      <div className={styles.loginFooter}>
+        <div className={styles.footerDivider}>
+           <span className={styles.footerLine}></span>
+           <span className={styles.footerIcon}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <circle cx="12" cy="12" r="10" />
+                <path d="M12 2a5 5 0 0 0 0 10 5 5 0 0 1 0 10" />
+                <circle cx="12" cy="7" r="2" fill="currentColor" />
+                <circle cx="12" cy="17" r="2" fill="transparent" />
+              </svg>
+           </span>
+           <span className={styles.footerLine}></span>
+        </div>
+        <p>
+           © {new Date().getFullYear()} Club Shaolin Las Gabias
+           <span className={styles.separator}> | </span>
+           <br className={styles.mobileBreak} />
+           Desarrollado por  <a href="http://fjfh06.ddns.net" target="_blank" rel="noreferrer" title="Visitar web del desarrollador">Fco. Javier Fdez</a>
+        </p>
       </div>
     </div>
   );

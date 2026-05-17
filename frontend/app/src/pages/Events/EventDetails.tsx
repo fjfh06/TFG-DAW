@@ -338,7 +338,7 @@ const EventDetails = ({ evento, onBack }: Props) => {
                       <div className="flex items-center gap-3">
                          <StudentAvatar photoUrl={alum?.foto} name={alum?.nombre || ''} lastName={alum?.apellidos || ''} size="sm" />
                          <div>
-                            <p className="font-black text-sm leading-tight">{alum ? `${alum.nombre} ${alum.apellidos}` : '?'}</p>
+                            <p className="font-bold text-sm leading-tight">{alum ? `${alum.nombre} ${alum.apellidos}` : '?'}</p>
                             <span className="text-[10px] text-gray-400 uppercase font-bold">{alum?.dni}</span>
                          </div>
                       </div>

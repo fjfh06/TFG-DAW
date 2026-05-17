@@ -7,7 +7,7 @@ import { useLoading } from "../../hooks/useLoading";
 import styles from "./Settings.module.css";
 import { useAuth } from "../../hooks/useAuth";
 import { formatRole } from "../../utils/formatters";
-import { Edit3, Trash2 } from "lucide-react";
+import { Edit3, Trash2, Search } from "lucide-react";
 
 const UsersTab = () => {
   const { user: currentUser } = useAuth();
@@ -110,7 +110,7 @@ const UsersTab = () => {
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
         />
-        <span className="premiumSearchIcon">🔍</span>
+        <span className="premiumSearchIcon"><Search size={20} className="text-gray-400" /></span>
       </div>
 
       {showForm && (
@@ -124,7 +124,7 @@ const UsersTab = () => {
                 className="inputField"
                 value={formData.username} 
                 onChange={e => setFormData({...formData, username: e.target.value})} 
-                placeholder="Ej. jose_admin" 
+                placeholder="Ej. fjavier" 
                 required
               />
             </div>

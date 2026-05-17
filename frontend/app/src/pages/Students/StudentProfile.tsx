@@ -18,7 +18,10 @@ import {
   ArrowLeft, 
   Edit3, 
   Trophy,
-  Shield
+  Shield,
+  X,
+  Check,
+  Star
 } from "lucide-react";
 import type { Alumno, Cinturon, Asistencia, PagoMensualidad, Participacion, LicenciaAlumno, TipoLicencia, Evento } from "../../types";
 import styles from "./StudentProfile.module.css";
@@ -246,14 +249,14 @@ const StudentProfile = () => {
                 <div className="mt-6 p-4 bg-white border rounded-xl shadow-sm animate-in fade-in slide-in-from-top-2 duration-300">
                   <div className="flex justify-between items-center mb-4 border-b pb-2">
                     <h5 className="font-bold text-gray-800">Detalle del {new Date(selectedDate).toLocaleDateString('es', { day:'numeric', month:'long', year:'numeric' })}</h5>
-                    <button className="text-gray-400 hover:text-gray-600" onClick={() => setSelectedDate(null)}>✕</button>
+                    <button className="text-gray-400 hover:text-gray-600" onClick={() => setSelectedDate(null)}><X size={20} /></button>
                   </div>
                   
                   <div className="flex flex-col gap-3">
                     {/* Regular Attendance */}
                     {asistencias.some(a => a.fecha.startsWith(selectedDate)) ? (
                       <div className="flex items-center gap-2 text-emerald-700 bg-emerald-50 p-2 rounded-lg text-sm font-medium">
-                        <span className="text-xl">✓</span> Asistió a clase
+                        <span className="flex items-center justify-center"><Check size={20} /></span> Asistió a clase
                       </div>
                     ) : (
                       <div className="flex items-center gap-2 text-gray-400 bg-gray-50 p-2 rounded-lg text-sm">
@@ -273,13 +276,13 @@ const StudentProfile = () => {
                          return (
                            <div key={ev.id} className="flex flex-col gap-1 p-2 bg-blue-50 border border-blue-100 rounded-lg">
                               <div className="flex items-center justify-between">
-                                <span className="text-blue-900 font-bold text-sm">⭐ Evento: {ev.nombre}</span>
+                                <span className="flex items-center gap-1 text-blue-900 font-bold text-sm"><Star size={16} /> Evento: {ev.nombre}</span>
                                 <span className="text-xs bg-blue-200 text-blue-800 px-2 py-0.5 rounded-full">{ev.tipo.toUpperCase()}</span>
                               </div>
                               {part ? (
                                 <div className="text-xs text-blue-700">
                                   Inscrito como: <strong>{part.categoria}</strong> | Estado: {part.estado_inscripcion}
-                                  {part.resultado && <div className="mt-1 font-bold text-amber-700">🏆 Logro: {part.resultado.puesto}</div>}
+                                  {part.resultado && <div className="mt-1 font-bold text-amber-700 flex items-center gap-1"><Trophy size={16} className="text-amber-500" /> Logro: {part.resultado.puesto}</div>}
                                 </div>
                               ) : (
                                 <div className="text-xs text-gray-500 italic">No inscrito en este evento</div>

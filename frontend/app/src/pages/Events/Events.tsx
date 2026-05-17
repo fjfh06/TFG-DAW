@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Search } from "lucide-react";
 import { eventAPI } from "../../services/event.service";
 import type { Evento, TipoEvento, EstadoEvento } from "../../types";
 import { useSeason } from "../../hooks/useSeason";
@@ -153,7 +154,7 @@ const Events = () => {
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-          <span className="premiumSearchIcon">🔍</span>
+          <span className="premiumSearchIcon"><Search size={20} className="text-gray-400" /></span>
       </div>
 
       {isFormOpen && (
@@ -163,7 +164,7 @@ const Events = () => {
           <div className="formRow">
             <div className="formGroup">
               <label>Nombre del Evento *</label>
-              <input required className="inputField" value={form.nombre} onChange={e => setForm({...form, nombre: e.target.value})} placeholder="Ej: Campeonato de España 2026" />
+              <input required className="inputField" value={form.nombre} onChange={e => setForm({...form, nombre: e.target.value})} placeholder="Ej: Campeonato de España 2020" />
             </div>
             <div className="formGroup">
               <label>Tipo *</label>

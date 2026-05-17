@@ -1,4 +1,5 @@
 import { type ReactNode } from "react";
+import { Sparkles } from "lucide-react";
 import styles from "./StatCard.module.css";
 import { StudentAvatar } from "../StudentAvatar/StudentAvatar";
 import { useNavigate } from "react-router-dom";
@@ -88,7 +89,7 @@ export const StatCard = ({
           </div>
         ) : (
           <div className={styles.emptyState}>
-            ✨ {emptyMessage}
+            <Sparkles size={16} className="inline-block mr-2" /> {emptyMessage}
           </div>
         )}
       </div>

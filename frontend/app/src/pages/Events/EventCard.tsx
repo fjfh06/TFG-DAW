@@ -1,6 +1,7 @@
 import type { Evento } from "../../types";
 import styles from "./EventCard.module.css";
 import React from "react";
+import { Clock, MapPin, CreditCard, Pencil, Trash2 } from "lucide-react";
 
 interface EventCardProps {
   evento: Evento;
@@ -40,7 +41,7 @@ export const EventCard: React.FC<EventCardProps> = ({ evento, onEdit, onDelete, 
       
       <div className={styles.body}>
         <div className={styles.infoRow}>
-          <span className={styles.icon}>🕒</span>
+          <span className={styles.icon}><Clock size={16} /></span>
           <div className={styles.timeBlock}>
             <span>{formatDateTime(evento.fecha_inicio)}</span>
             <span className={styles.timeSeparator}>-</span>
@@ -49,12 +50,12 @@ export const EventCard: React.FC<EventCardProps> = ({ evento, onEdit, onDelete, 
         </div>
 
         <div className={styles.infoRow}>
-          <span className={styles.icon}>📍</span>
+          <span className={styles.icon}><MapPin size={16} /></span>
           <span className={styles.infoText}>{evento.lugar || "Sin ubicación definida"}</span>
         </div>
 
         <div className={styles.infoRow}>
-          <span className={styles.icon}>💳</span>
+          <span className={styles.icon}><CreditCard size={16} /></span>
           <span className={styles.priceText}>
             {isFree ? (
               <span className={styles.freeBadge}>Gratuito</span>
@@ -71,10 +72,10 @@ export const EventCard: React.FC<EventCardProps> = ({ evento, onEdit, onDelete, 
         </button>
         <div className={styles.actions}>
           <button className={styles.editBtn} onClick={() => onEdit(evento)}>
-            ✏️ Editar
+            <Pencil size={14} className="inline-block mr-1" /> Editar
           </button>
           <button className={styles.deleteBtn} onClick={() => onDelete(evento.id)}>
-            🗑️ Eliminar
+            <Trash2 size={14} className="inline-block mr-1" /> Eliminar
           </button>
         </div>
       </div>

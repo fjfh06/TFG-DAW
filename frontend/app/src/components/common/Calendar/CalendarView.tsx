@@ -1,6 +1,7 @@
 import React from 'react';
 import type { Evento, Asistencia } from "../../../types";
 import styles from "./CalendarView.module.css";
+import { User } from "lucide-react";
 
 interface CalendarViewProps {
   year: number;
@@ -79,17 +80,16 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
 
           // Determinar estado visual
           let cardStyle = styles.cellNormal;
-          let icon = null;
+          let icon: React.ReactNode = null;
 
           if (hasEvent && hasAttendance) {
             cardStyle = styles.cellEventAssisted;
-            icon = '⭐✓';
+            icon = <div className="flex gap-0.5"></div>;
           } else if (hasEvent) {
              cardStyle = styles.cellEvent;
-             icon = '⭐';
           } else if (hasAttendance) {
              cardStyle = styles.cellAssisted;
-             icon = '✓';
+             
           }
 
           const dateStr = `${year}-${String(month).padStart(2, '0')}-${String(day).padStart(2, '0')}`;
@@ -116,7 +116,7 @@ export const CalendarView: React.FC<CalendarViewProps> = ({
                    )}
                    {attCount > 0 && (
                      <div className={styles.attBadge}>
-                        {attCount} 👤
+                        <span className="flex items-center gap-0.5">{attCount} <User size={10} /></span>
                      </div>
                    )}
                 </div>

@@ -9,7 +9,7 @@ import { useLoading } from "../../hooks/useLoading";
 import styles from "./Payments.module.css";
 import { useSeason } from "../../hooks/useSeason";
 import { SearchableSelect } from "../../components/common/SearchableSelect/SearchableSelect";
-import { Edit3, Trash2 } from "lucide-react";
+import { Edit3, Trash2, XCircle, AlertTriangle } from "lucide-react";
 
 const ReceiptsTab = () => {
   const { currentSeason } = useSeason();
@@ -216,8 +216,8 @@ const ReceiptsTab = () => {
         <h3>Listado de Recibos Mensuales</h3>
         <div className="flex gap-2">
            {filtroParam === 'pendientes' && (
-              <button className="btn btn-secondary bg-red-50 text-red-600 border-red-200" onClick={() => setSearchParams({})}>
-                ❌ Quitar Filtro
+              <button className="btn btn-secondary bg-red-50 text-red-600 border-red-200 flex items-center gap-2" onClick={() => setSearchParams({})}>
+                <XCircle size={16} /> Quitar Filtro
               </button>
            )}
            <button className="btn btn-primary" onClick={() => handleOpenForm()}>
@@ -323,7 +323,7 @@ const ReceiptsTab = () => {
       ) : filtroParam === 'pendientes' ? (
         <div className={styles.tableContainer}>
           <div className="bg-red-50 p-4 border-b border-red-100 flex items-center gap-3">
-             <span className="text-2xl">⚠️</span>
+             <span className="text-2xl flex items-center"><AlertTriangle size={28} className="text-red-600" /></span>
              <div>
                <h4 className="text-red-800 font-bold mb-0">Alumnos Activos con Mensualidad Pendiente</h4>
                <p className="text-sm text-red-600 mb-0">Estos alumnos no tienen un recibo pagado para {filterMes}/{filterAnio}.</p>

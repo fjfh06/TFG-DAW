@@ -1,0 +1,264 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Arimo:ital,wght@0,400..700;1,400..700&display=swap');
+
+/* ==========================================================================
+   DISEÑO Y CONTENEDOR PRINCIPAL DE LA LICENCIA DIGITAL
+   ========================================================================== */
+.idCardWrapper {
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.digitalCard {
+  width: 100%;
+  aspect-ratio: 1061 / 674; /* Bloquea la relación de aspecto exacta de la plantilla original */
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+  container-type: inline-size; /* Habilita container queries para escalar fuentes de forma perfecta */
+  user-select: none;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  background: transparent; /* Fondo oscuro premium para que las transparencias contrasten de forma espectacular */
+}
+
+.digitalCard:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 15px 40px rgba(0, 0, 0, 0.5);
+}
+
+.cardBgImage {
+  width: 100%;
+  height: 100%;
+  object-fit: fill; /* Rellena el contenedor bloqueado por aspecto garantizando que NADA se recorte */
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+}
+
+.cardGlow {
+  position: absolute;
+  top: -30%;
+  right: -30%;
+  width: 80%;
+  height: 80%;
+  border-radius: 50%;
+  filter: blur(40px);
+  z-index: 2;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.cardPaid .cardGlow {
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.35) 0%, rgba(16, 185, 129, 0) 70%);
+}
+
+.cardUnpaid .cardGlow {
+  background: radial-gradient(circle, rgba(239, 68, 68, 0.25) 0%, rgba(239, 68, 68, 0) 70%);
+}
+
+
+/* ==========================================================================
+   EDITA AQUÍ PERSONALMENTE LOS TAMAÑOS, NEGRITAS Y POSICIONES DE LOS TEXTOS
+   ========================================================================== */
+
+/* 1. NOMBRE COMPLETO DE ALUMNO (Puede ocupar hasta el 90% del ancho) */
+.fieldName {
+  position: absolute;
+  z-index: 3;
+  color: #000000;
+  font-family: 'Inter', 'Arimo', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  white-space: nowrap;
+  
+  /* Ajustes editables: */
+  top: 35%;             /* Posición vertical: Ajusta este porcentaje para moverlo arriba o abajo */
+  left: 5%;               /* Margen izquierdo del 5% para centrarlo (5% + 90% ancho + 5% derecho = 100%) */
+  width: 90%;             /* Anchura máxima: Permite al nombre extenderse hasta ocupar el 90% de la foto */
+  height: 9.9%;           /* Altura del área contenedora del nombre */
+  font-weight: 700;       /* Grosor de letra: Usa 600 para semi-bold, 700 para negrita fuerte, 400 normal */
+}
+
+/* 2. DNI DE ALUMNO */
+.fieldDni {
+  position: absolute;
+  z-index: 3;
+  color: #000000;
+  font-family: 'Inter', 'Arimo', sans-serif;
+  
+  /* Ajustes editables: */
+  top: 43.3%;             /* Posición vertical: Ajusta este porcentaje para mover el DNI arriba o abajo */
+  left: 44.0%;            /* Posición horizontal: Ajusta para mover el DNI a la izquierda o derecha */
+  font-size: 4.2cqw;      /* Tamaño de letra: cqw hace que se escale según el tamaño del contenedor */
+  font-weight: 700;       /* Grosor de letra del DNI */
+}
+
+/* 3. FECHA DE NACIMIENTO (FN) */
+.fieldBirthDate {
+  position: absolute;
+  z-index: 3;
+  color: #000000;
+  font-family: 'Inter', 'Arimo', sans-serif;
+  
+  /* Ajustes editables: */
+  top: 52.7%;             /* Posición vertical de la fecha de nacimiento */
+  left: 42.0%;            /* Posición horizontal de la fecha de nacimiento */
+  font-size: 4.2cqw;      /* Tamaño de letra de la fecha de nacimiento */
+  font-weight: 700;       /* Grosor de letra de la fecha de nacimiento */
+}
+
+/* 4. NOMBRE DE LA LICENCIA (Territorial, Ayudante, etc.) */
+.fieldLicenseName {
+  position: absolute;
+  z-index: 3;
+  color: #000000;
+  font-family: 'Inter', 'Arimo', sans-serif;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  white-space: nowrap;
+  
+  /* Ajustes editables: */
+  top: 79.3%;             /* Posición vertical del nombre de la licencia */
+  left: 5%;               /* Margen izquierdo para centrado horizontal */
+  width: 90%;             /* Anchura máxima del nombre de la licencia */
+  font-size: 4.2cqw;     /* Tamaño de letra de la licencia */
+  font-weight: 700;       /* Grosor de letra de la licencia */
+}
+
+/* 5. VÁLIDO DESDE (Fecha 1) */
+.fieldValidoDesde {
+  position: absolute;
+  z-index: 3;
+  color: #000000;
+  font-family: 'Inter', 'Arimo', sans-serif;
+  
+  /* Ajustes editables: */
+  top: 90.15%;            /* Posición vertical de la fecha Desde */
+  left: 22.7%;            /* Posición horizontal de la fecha Desde */
+  font-size: 2.2cqw;     /* Tamaño de letra de la fecha Desde */
+  font-weight: 600;       /* Grosor de letra de la fecha Desde */
+}
+
+/* 6. VÁLIDO HASTA (Fecha 2) */
+.fieldValidoHasta {
+  position: absolute;
+  z-index: 3;
+  color: #000000;
+  font-family: 'Inter', 'Arimo', sans-serif;
+  
+  /* Ajustes editables: */
+  top: 90.2%;            /* Posición vertical de la fecha Hasta */
+  left: 44.7%;            /* Posición horizontal de la fecha Hasta */
+  font-size: 2.2cqw;     /* Tamaño de letra de la fecha Hasta */
+  font-weight: 600;       /* Grosor de letra de la fecha Hasta */
+}
+
+
+/* ==========================================================================
+   ESTADO E INDICADORES DE PAGO (Debajo de la tarjeta)
+   ========================================================================== */
+.cardActionsRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+  flex-wrap: wrap;
+  width: 100%;
+}
+
+.cardStatusBadgeRow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-full);
+  box-shadow: var(--shadow-sm);
+  transition: all 0.3s ease;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+/* Translucent green background for active/paid licenses */
+.badgePaid {
+  background: rgba(16, 185, 129, 0.08);
+  border: 1px solid rgba(16, 185, 129, 0.15);
+}
+
+.badgePaid .statusBadgeText {
+  color: #065f46;
+}
+
+/* Translucent red background for pending/unpaid licenses */
+.badgeUnpaid {
+  background: rgba(239, 68, 68, 0.08);
+  border: 1px solid rgba(239, 68, 68, 0.15);
+}
+
+.badgeUnpaid .statusBadgeText {
+  color: #991b1b;
+}
+
+.statusDot {
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+}
+
+.dotActive {
+  background: var(--color-success);
+  box-shadow: 0 0 8px var(--color-success);
+}
+
+.dotInactive {
+  background: #ef4444;
+  box-shadow: 0 0 8px #ef4444;
+}
+
+.statusBadgeText {
+  font-size: 0.72rem;
+  font-weight: 750;
+}
+
+/* Premium Download Button */
+.downloadButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: #1e293b;
+  color: #f8fafc;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 0.5rem 1.1rem;
+  border-radius: var(--radius-full);
+  font-size: 0.72rem;
+  font-weight: 750;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: 'Inter', sans-serif;
+  user-select: none;
+}
+
+.downloadButton:hover {
+  background: #0f172a;
+  color: #ffffff;
+  border-color: rgba(255, 255, 255, 0.15);
+  transform: translateY(-1.5px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.downloadButton:active {
+  transform: translateY(0);
+}
+

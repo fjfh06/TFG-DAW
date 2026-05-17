@@ -1,0 +1,102 @@
+.siteFooter {
+  margin-top: auto;
+  padding: 3rem 1rem 2rem;
+  background: linear-gradient(180deg, var(--color-gray-900) 0%, #1e1b4b 100%);
+  border-top: 2px solid #ef4444; /* Subtle red top border to tie into the theme */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: white;
+}
+
+.footerContent {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  width: 100%;
+  max-width: 600px;
+}
+
+.footerDivider {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 1.5rem;
+  gap: 1rem;
+}
+
+.footerLine {
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(to right, transparent, rgba(255, 0, 0, 0.605), transparent);
+}
+
+.footerIcon {
+  color: #ef4444; /* Red accent for the Yin Yang */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: spinSlow 5s linear infinite;
+}
+
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.footerTextPrimary {
+  margin: 0 0 0.5rem 0;
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: #e2e8f0;
+  letter-spacing: 0.02em;
+}
+
+.footerTextSecondary {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.footerTextSecondary a {
+  color: #ef4444; /* Consistent red accent */
+  font-weight: 800;
+  text-decoration: none !important;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  margin-left: 0.4rem;
+  animation: pulseLink 3s infinite ease-in-out;
+}
+
+.footerTextSecondary a::after {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 2px;
+  bottom: -2px;
+  left: 0;
+  background-color: #ff0000;
+  transform: scaleX(0);
+  transform-origin: bottom right;
+  transition: transform 0.3s ease-out;
+}
+
+.footerTextSecondary a:hover {
+  color: white;
+  animation: none;
+}
+
+@keyframes pulseLink {
+  0%, 100% { transform: scale(1); filter: brightness(1); }
+  50% { transform: scale(1.05); filter: brightness(1.3); }
+}
+
+.footerTextSecondary a:hover::after {
+  transform: scaleX(1);
+  transform-origin: bottom left;
+  background-color: white;
+}

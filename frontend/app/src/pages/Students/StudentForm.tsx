@@ -7,6 +7,7 @@ import { toast } from "sonner";
 import { StudentAvatar } from "../../components/common/StudentAvatar/StudentAvatar";
 import { Loader } from "../../components/common/Loader/Loader";
 import { useLoading } from "../../hooks/useLoading";
+import { useAuth } from "../../hooks/useAuth";
 import styles from "./StudentForm.module.css";
 
 const MONTHS = [
@@ -30,6 +31,9 @@ const StudentForm = () => {
   const navigate = useNavigate();
   const isEditing = Boolean(id);
 
+  const { user } = useAuth();
+  const isAdmin = user?.rol === "admin";
+
   const [cinturones, setCinturones] = useState<Cinturon[]>([]);
   const [usuarios, setUsuarios] = useState<User[]>([]);
   const [isLoading, setIsLoading] = useLoading(isEditing);
@@ -43,12 +47,18 @@ const StudentForm = () => {
   useEffect(() => {
     const init = async () => {
       try {
-        const [cinturonesData, usersData] = await Promise.all([
-          cinturonAPI.getCinturones(),
-          userAPI.getUsers()
-        ]);
-        setCinturones(cinturonesData);
-        setUsuarios(usersData);
+        if (isAdmin) {
+          const [cinturonesData, usersData] = await Promise.all([
+            cinturonAPI.getCinturones(),
+            userAPI.getUsers()
+          ]);
+          setCinturones(cinturonesData);
+          setUsuarios(usersData);
+        } else {
+          const cinturonesData = await cinturonAPI.getCinturones();
+          setCinturones(cinturonesData);
+          setUsuarios([]);
+        }
       } catch {
         toast.error("Error al cargar datos iniciales");
       } finally {
@@ -56,7 +66,7 @@ const StudentForm = () => {
       }
     };
     init();
-  }, [setIsLoading]);
+  }, [setIsLoading, isAdmin]);
 
   // Native Form ref
   const [formValues, setFormValues] = useState({
@@ -116,8 +126,12 @@ const StudentForm = () => {
     setIsSubmitting(true);
     const formData = new FormData(e.currentTarget);
 
-    // Enviamos siempre los campos vacíos como "" para que el backend pueda anularlos si es necesario
-    
+    // Si el usuario actual no es administrador, no enviamos 'user_id'
+    // para evitar fallos de privilegios (403/Forbidden) en el backend.
+    if (!isAdmin) {
+      formData.delete("user_id");
+    }
+
     // Convert boolean to string for FormData (backend handles strictly "true"/"false")
     formData.set("activo", formValues.activo ? "true" : "false");
 
@@ -236,7 +250,7 @@ const StudentForm = () => {
           <div className={styles.formRow}>
             <div className={styles.formGroup}>
               <label>DNI</label>
-              <input name="dni" value={formValues.dni} onChange={handleInputChange} className={styles.inputField} placeholder="12345678X" />
+              <input name="dni" value={formValues.dni} onChange={handleInputChange} className={styles.inputField} placeholder="Ej: 12345678X" />
             </div>
             <div className={styles.formGroup}>
               <label>Fecha Nacimiento</label>
@@ -273,7 +287,7 @@ const StudentForm = () => {
           <div className={styles.formRow}>
             <div className={styles.formGroup}>
               <label>Teléfono</label>
-              <input name="telefono" value={formValues.telefono} onChange={handleInputChange} className={styles.inputField} placeholder="+34 600 000 000" />
+              <input name="telefono" value={formValues.telefono} onChange={handleInputChange} className={styles.inputField} placeholder="Ej: +34 600 000 000" />
             </div>
             <div className={styles.formGroup}>
               <label>Cinturón Actual</label>
@@ -289,22 +303,24 @@ const StudentForm = () => {
           <div className={styles.formRow}>
              <div className={styles.formGroup}>
                 <label>Dirección Postal</label>
-                <input name="direccion" value={formValues.direccion} onChange={handleInputChange} className={styles.inputField} placeholder="Calle Ejemplo, 123" />
+                <input name="direccion" value={formValues.direccion} onChange={handleInputChange} className={styles.inputField} placeholder="Ej: Calle Ejemplo, 123 18000 Granada" />
              </div>
           </div>
 
-          <div className={styles.formRow}>
-             <div className={styles.formGroup}>
-                <label>Vincular a Usuario del Sistema</label>
-                <select name="user_id" value={formValues.user_id} onChange={handleInputChange} className={styles.inputField}>
-                   <option value="">(Sin vincular)</option>
-                   {usuarios.map(u => (
-                     <option key={u.id} value={u.id}>{u.username}</option>
-                   ))}
-                </select>
-                <p className="text-xs text-blue-600 font-medium">Tip: vincula esto al usuario con username igual al nombre para coherencia.</p>
-             </div>
-          </div>
+          {isAdmin && (
+            <div className={styles.formRow}>
+               <div className={styles.formGroup}>
+                  <label>Vincular a Usuario del Sistema</label>
+                  <select name="user_id" value={formValues.user_id} onChange={handleInputChange} className={styles.inputField}>
+                     <option value="">(Sin vincular)</option>
+                     {usuarios.map(u => (
+                       <option key={u.id} value={u.id}>{u.username}</option>
+                     ))}
+                  </select>
+                  <p className="text-xs text-blue-600 font-medium">Tip: vincula esto al usuario con username igual al nombre para coherencia.</p>
+               </div>
+            </div>
+          )}
 
           <div className={styles.checkboxContainer}>
             <input type="checkbox" id="activo" name="activo" checked={formValues.activo} onChange={handleInputChange} />

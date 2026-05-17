@@ -9,7 +9,7 @@ import { StudentAvatar } from "../../components/common/StudentAvatar/StudentAvat
 import { CalendarView } from "../../components/common/Calendar/CalendarView";
 import { Loader } from "../../components/common/Loader/Loader";
 import { useLoading } from "../../hooks/useLoading";
-import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Users, CheckCircle2 } from "lucide-react";
+import { ChevronLeft, ChevronRight, Calendar as CalendarIcon, Users, CheckCircle2, Search } from "lucide-react";
 import styles from "./Attendance.module.css";
 
 const Attendance = () => {
@@ -261,7 +261,7 @@ const Attendance = () => {
                   value={searchTerm}
                   onChange={e => setSearchTerm(e.target.value)}
                />
-               <span className="premiumSearchIcon">🔍</span>
+               <span className="premiumSearchIcon"><Search size={20} className="text-gray-400" /></span>
             </div>
             <button className={`${styles.bulkBtn} btn btn-secondary`} style={{ borderRadius: 'var(--radius-full)', height: '52px' }} onClick={handleBulkAttendance}>
                <CheckCircle2 size={18} />

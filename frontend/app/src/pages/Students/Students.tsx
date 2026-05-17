@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { Search } from "lucide-react";
 import { useNavigate } from "react-router-dom";
 import { studentAPI } from "../../services/student.service";
 import type { Alumno } from "../../types";
@@ -68,7 +69,7 @@ const Students = () => {
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
             />
-            <span className="premiumSearchIcon">🔍</span>
+            <span className="premiumSearchIcon"><Search size={20} className="text-gray-400" /></span>
           </div>
         </div>
         {isLoading ? (

@@ -7,6 +7,7 @@ import styles from "./Layout.module.css";
 import { Menu, X } from "lucide-react";
 import logoClubShaolin from "../../assets/logoClubShaolin.png";
 import { formatRole } from "../../utils/formatters";
+import { Footer } from "./Footer/Footer";
 
 export const MainLayout = () => {
   const { user, logout } = useAuth();
@@ -194,6 +195,8 @@ export const MainLayout = () => {
         <div className={styles.pageContent}>
           <Outlet />
         </div>
+
+        <Footer />
       </main>
     </div>
   );
