@@ -198,7 +198,7 @@ export const LicenseCard: React.FC<LicenseCardProps> = ({
         
         <button onClick={handleDownload} className={styles.downloadButton}>
           <Download size={13} />
-          <span>Descargar PNG</span>
+          <span>Descargar</span>
         </button>
       </div>
     </div>

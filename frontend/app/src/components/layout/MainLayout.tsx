@@ -32,8 +32,8 @@ export const MainLayout = () => {
       {isLoadingSeasons && <Loader fullPage text="Sincronizando Temporada..." />}
       {/* Mobile overlay */}
       {isMobileMenuOpen && (
-        <div 
-          className={styles.mobileOverlay} 
+        <div
+          className={styles.mobileOverlay}
           onClick={() => setIsMobileMenuOpen(false)}
         />
       )}
@@ -59,7 +59,7 @@ export const MainLayout = () => {
           >
             Dashboard
           </NavLink>
-          
+
           {(user?.rol === "admin" || user?.rol === "ayudante") && (
             <>
               <NavLink
@@ -121,29 +121,29 @@ export const MainLayout = () => {
 
         <div className={styles.sidebarFooter}>
           <div className={styles.seasonSelectorMobile}>
-             <label className={styles.seasonLabel}>Temporada:</label>
-             <select
-                className={styles.seasonSelect}
-                value={currentSeason?.id || ""}
-                onChange={(e) => {
-                  const selectedId = parseInt(e.target.value);
-                  const season = seasons.find((s) => s.id === selectedId);
-                  if (season) setCurrentSeason(season);
-                }}
-                disabled={isLoadingSeasons || seasons.length === 0}
-              >
-                {isLoadingSeasons ? (
-                  <option value="">...</option>
-                ) : seasons.length === 0 ? (
-                  <option value="">Sin temporadas</option>
-                ) : (
-                  seasons.map((season) => (
-                    <option key={season.id} value={season.id}>
-                      {season.nombre} {season.activa ? "(Actual)" : ""}
-                    </option>
-                  ))
-                )}
-              </select>
+            <label className={styles.seasonLabel}>Temporada:</label>
+            <select
+              className={styles.seasonSelect}
+              value={currentSeason?.id || ""}
+              onChange={(e) => {
+                const selectedId = parseInt(e.target.value);
+                const season = seasons.find((s) => s.id === selectedId);
+                if (season) setCurrentSeason(season);
+              }}
+              disabled={isLoadingSeasons || seasons.length === 0}
+            >
+              {isLoadingSeasons ? (
+                <option value="">...</option>
+              ) : seasons.length === 0 ? (
+                <option value="">Sin temporadas</option>
+              ) : (
+                seasons.map((season) => (
+                  <option key={season.id} value={season.id}>
+                    {season.nombre} {season.activa ? "(Actual)" : ""}
+                  </option>
+                ))
+              )}
+            </select>
           </div>
 
           <div className={styles.userInfo}>

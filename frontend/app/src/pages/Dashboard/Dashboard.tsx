@@ -199,15 +199,17 @@ const Dashboard = () => {
                <Link to="/eventos" className="btn bg-white border border-gray-300 text-gray-800">Ver Eventos</Link>
              </div>
           </div>
-
+            
           {/* Right Column: Personal digital license card (top right, non-sticky) */}
-          <div className={styles.licenseSection}>
-            <LicenseCard 
-              alumno={linkedAlumno} 
-              licencia={linkedLicencia} 
-              tipoLicencia={linkedTipoLicencia} 
-            />
-          </div>
+          {!isLoading && (
+            <div className={styles.licenseSection}>
+              <LicenseCard 
+                alumno={linkedAlumno} 
+                licencia={linkedLicencia} 
+                tipoLicencia={linkedTipoLicencia} 
+              />
+            </div>
+          )}
 
         </div>
       ) : (

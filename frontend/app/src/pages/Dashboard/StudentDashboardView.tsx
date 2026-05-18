@@ -166,7 +166,7 @@ export const StudentDashboardView = () => {
                      <CreditCard size={24} />
                  </div>
                  <div>
-                   <h3 className={styles.cardTitle}>Monitor Fiscal</h3>
+                   <h3 className={styles.cardTitle}>Monitor de Pagos</h3>
                    <p className={styles.cardSubtitle}>Estado de Cuotas Anuales</p>
                  </div>
                </div>
